@@ -8,6 +8,11 @@ db = client['login_db']
 users = db['users']
 users.create_index([('username', 1)], unique=True)  # Set username as a unique index
 
+@app.route('/')
+def dashboard():
+    return render_template('dashboard.html')
+
+
 @app.route('/add_employee', methods=['GET', 'POST'])
 def add_employee():
     if request.method == 'POST':
