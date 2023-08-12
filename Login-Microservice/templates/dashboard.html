@@ -1,0 +1,24 @@
+{% extends "layout.html" %} 
+
+{% block title %}Dashboard{% endblock %} 
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
+{% endblock %}
+
+{% block content %}
+<main class="content">
+    <h1>Welcome, {{ username }}!</h1>
+    <a href="{{ url_for('logout') }}" style="color: white; text-decoration: none">Logout</a>
+    <nav class="dashboard-nav">
+        <h2>Right Side Navigation</h2>
+        <ul>
+            <li><a href="http://127.0.0.1:5001/add_employee">Add User</a></li>
+            <li><a href="#">Remove User</a></li>
+            <li><a href="#">Add Resource</a></li>
+            <li><a href="#">Remove/Block Resource</a></li>
+            <li><a href="#">Generate Reports</a></li>
+        </ul>
+    </nav>
+</main>
+{% endblock %}
