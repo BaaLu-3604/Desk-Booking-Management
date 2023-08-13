@@ -45,3 +45,42 @@ body {
     background-color: #0056b3;
   }
   
+
+
+/* Dashboard*/
+.dashboard-nav {
+  position: fixed;
+  left: 0;
+  margin-top: 69px;
+  width: 200px;
+  height: 100vh;
+  color: #fff;
+  background-color: #f1f1f1;
+  box-sizing: border-box;
+}
+
+.dashboard-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+}
+
+.dashboard-nav li a {
+  display: block;
+  color: #000;
+  padding: 9px 18px;
+  text-decoration: none;
+}
+
+.dashboard-nav li a:hover {
+  background-color: #555;
+  color: white;
+}
+
+.dashboard-content {
+  margin-top: 49px;
+  margin-left: 200px; /* Same as sidebar width */
+  padding: 20px;
+  box-sizing: border-box;
+}

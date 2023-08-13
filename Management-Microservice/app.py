@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 from pymongo import MongoClient
 import bcrypt
 
@@ -8,13 +8,18 @@ db = client['login_db']
 users = db['users']
 users.create_index([('username', 1)], unique=True)  # Set username as a unique index
 
-@app.route('/')
-def dashboard():
-    return render_template('dashboard.html')
+@app.route('/api/dashboard')
+def api_dashboard():
+    # Generate the dashboard data here and return it as JSON
+    dashboard_data = {
+        'content': 'Dashboard content from the management microservice.'
+        # ... other data ...
+    }
+    return jsonify(dashboard_data)
 
 
 @app.route('/add_employee', methods=['GET', 'POST'])
-def add_employee():
+def add_user():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -48,4 +53,4 @@ def user_list():
     return render_template('emp-list.html', users=all_users)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5002)
