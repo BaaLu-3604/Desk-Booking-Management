@@ -1,0 +1,12 @@
+{% extends 'dashboard.html' %}
+
+{% block main %}
+<h1>Add Employee</h1>
+<form method="post">
+    <label>Username:</label>
+    <input type="text" name="username" required><br>
+    <label>Password:</label>
+    <input type="password" name="password" required><br>
+    <input type="submit" value="Add Employee">
+</form>
+{% endblock %}

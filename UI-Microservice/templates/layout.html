@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <style>
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #1185e0;
+            font-family: monospace;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-rows: 1fr auto;
+            /* Main content and footer */
+            min-height: 100vh;
+        }
+
+        .title {
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+                sans-serif;
+            margin-left: 20px;
+        }
+
+        .wrapper {
+            padding: 50px;
+            margin-left: 20px;
+            /* background-image: url("./static/Images/1.png");
+            background-size: cover;
+            background-repeat:no-repeat;
+            background-attachment: fixed; */
+            display: grid;
+            grid-template-rows: 1fr auto;
+            /* Content and footer */
+        }
+
+        .content {
+            color: #000;
+            font-size: 18px;
+            overflow-y: auto;
+            padding: 20px;
+            margin: auto 90px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #1185e0;
+            color: #fff;
+            padding: 2px;
+            text-align: center;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background-color: #1185e0;
+            z-index: 1;
+        }
+
+        .header_nav ul {
+            margin-right: auto;
+            margin-left: auto;
+            justify-content: space-around;
+            list-style: none;
+            display: flex;
+            gap: 50px;
+            overflow: hidden;
+        }
+
+        .header_nav ul li a {
+            justify-content: space-between;
+            text-decoration: none;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .login-button,
+        .logout-button {
+            left: 0;
+            background-color: #000000;
+            color: #ffffff;
+            font-weight: bold;
+            border: none;
+            padding: 10px 20px;
+            margin-right: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <span class="title">Smart Desk</span>
+        </div>
+        <nav class="header_nav">
+            <ul>
+                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="login-container">
+            {% if 'username' not in session %}
+            <a href="{{ url_for('login') }}"><button class="login-button" id="loginButton">Login</button></a>
+            {% else %}
+            <a href="{{ url_for('logout') }}"><button class="login-button" id="logoutButton">Logout</button></a>
+            {% endif %}
+        </div>
+    </header>
+    {% block content %}{% endblock %}
+
+    <footer>
+        <div class="copyright">
+            <p>&copy; 2023 Your Website. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

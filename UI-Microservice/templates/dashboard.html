@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
+{% endblock %}
+
+{% block content %}
+
+{% if 'username' in session %}
+    <nav class="dashboard-nav">
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="{{ url_for('add_user')}}">User Management</a></li>
+            <li><a href="#">Resource Management</a></li>
+            <li><a href="#">View Issues</a></li>
+            <li><a href="#">Generate Reports</a></li>
+        </ul>
+    </nav>
+    {% endif %}
+
+<main class="dashboard-content">
+    {% block main %}{% endblock %}
+</main>
+
+{% endblock %} -->
