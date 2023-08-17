@@ -51,9 +51,15 @@ def logout():
 def forget_password():
     return render_template('forget.html')
 
-
-@app.route('/add_user', methods=['GET', 'POST'])
+@app.route('/add_user', methods=['GET','POST'])
 def add_user():
+    if request.method == 'POST':
+        email = request.form['email']
+        role = request.form['role']
+        
+        response = requests.post('http://localhost:5002/add_user', json=({'email':email,'role':role}))  # Send data directly as JSON
+        print(response.status_code)
+ 
     return render_template('add.html')
 
 if __name__ == '__main__':

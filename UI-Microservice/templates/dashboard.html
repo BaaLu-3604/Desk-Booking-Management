@@ -8,20 +8,7 @@
 
 {% block content %}
 
-{% if 'username' in session %}
-    <nav class="dashboard-nav">
-        <ul>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="{{ url_for('add_user')}}">User Management</a></li>
-            <li><a href="#">Resource Management</a></li>
-            <li><a href="#">View Issues</a></li>
-            <li><a href="#">Generate Reports</a></li>
-        </ul>
-    </nav>
-    {% endif %}
+{% block main %}{% endblock %}
 
-<main class="dashboard-content">
-    {% block main %}{% endblock %}
-</main>
 
-{% endblock %} -->
+{% endblock %}

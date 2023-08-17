@@ -2,15 +2,18 @@
 
 {% block title %}Login Page{% endblock %}
 
+{% block meta %}
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+{% endblock %}
+
 {% block stylesheets %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
 {% endblock %}
-</head>
+
 {% block content %}
 
 <main class="content">
 	
-
 	<div class="login-form">
 		<h1>LOGIN</h1>
 		<form method="post">
@@ -20,13 +23,6 @@
 		</form>
 		<a href="{{ url_for('forget_password') }}" value="">Forget Password</a>
 	</div>
-	{% with messages = get_flashed_messages() %}
-        {% if messages %}
-		<div class="popup">
-			{{ messages[0] }}
-		</div>
-	{% endif %}
-{% endwith %}
-	
+
 </main>
 {% endblock %}

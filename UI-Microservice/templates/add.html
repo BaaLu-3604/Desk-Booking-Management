@@ -1,12 +1,19 @@
 {% extends 'dashboard.html' %}
 
 {% block main %}
-<h1>Add Employee</h1>
+<div class="container">
+<h1>Add User</h1>
 <form method="post">
-    <label>Username:</label>
-    <input type="text" name="username" required><br>
-    <label>Password:</label>
-    <input type="password" name="password" required><br>
-    <input type="submit" value="Add Employee">
+    <div class="add_user">
+    <input placeholder="Email" type="Email" class="email" name="email" required><br>
+    <select name="role" id="role">
+        <option value="select">--select--</option>
+        <option value="Admin">Admin</option>
+        <option value="Manager">Manager</option>
+        <option value="Team Member">Team Member</option>
+      </select><br>
+    <input type="submit" value="Add User">
+    </div>
 </form>
+</div>
 {% endblock %}

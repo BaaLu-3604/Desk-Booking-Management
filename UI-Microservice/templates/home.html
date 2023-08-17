@@ -2,9 +2,12 @@
 
 {% block title %}Home Page{% endblock %}
 
+{% block meta %}
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+{% endblock %}
+
 {% block content %}
-<main class="content">
-  <div class="wrapper">
+  <div>
     <h1>Smart Desk Booking and Management</h1>
     <p>
       Desk Booking Management is a reliable platform that offers hassle-free
@@ -12,9 +15,19 @@
       members and managers can book desks, cancel bookings, and report any
       issues. Additionally, the platform generates comprehensive reports on desk
       usage, providing valuable insights for efficient workspace management.
+      members and managers can book desks, cancel bookings, and report any
+      issues. Additionally, the platform generates comprehensive reports on desk
+      usage, providing valuable insights for efficient workspace management.
+      members and managers can book desks, cancel bookings, and report any
+      issues. Additionally, the platform generates comprehensive reports on desk
+      usage, providing valuable insights for efficient workspace management.
     </p>
-    <img id = "1" alt="desk-image" src="./static/images/1.png">
-    <h1>Services</h1>
+    <img style="width: 500px;" id = "1" alt="desk-image" src="./static/images/1.png">
+    <p>
+      Our platform offers seamless desk booking capabilities, allowing team
+      members to easily reserve a desk that suits their needs.
+    </p>
+    <h1 id="services">Services</h1>
     <h2>Desk Booking</h2>
     <p>
       Our platform offers seamless desk booking capabilities, allowing team
@@ -26,6 +39,7 @@
       We provide a user-friendly cancellation feature, enabling team members to
       easily cancel their booked desks when plans change.
     </p>
+    <img id = "1" alt="desk-image" src="./static/images/1.png">
 
     Desk Usage Reporting Our advanced analytics provide managers with
     comprehensive reports on desk usage, allowing them to optimize workspace
@@ -39,5 +53,4 @@
     team members, track availability, and make necessary changes as per the
     team's requirements. This flexibility ensures optimal utilization of
   </div>
-</main>
 {% endblock %}

@@ -1,8 +1,8 @@
-from flask import Flask, flash, render_template, request, redirect, url_for, session
-import requests
-import os
+from flask import Flask, flash, render_template, request
+import requests,os
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -22,9 +22,6 @@ def forget_password():
     return render_template('forget.html')
 
 
-@app.route('/add_user', methods=['GET', 'POST'])
-def add_user():
-    return render_template('add.html')
 
 if __name__ == '__main__':
     app.run(debug=True,port=5001)
