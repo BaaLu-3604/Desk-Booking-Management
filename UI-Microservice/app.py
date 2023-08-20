@@ -8,7 +8,7 @@ app.secret_key = os.urandom(24)
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html',role = session.get('role'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -25,12 +25,18 @@ def login():
 
             if result['authenticated']:
                 session['username'] = username
-                return redirect(url_for('dashboard', username=username))
+                role = result['role']
+                session['role'] = role
+
+                print("Session Data:", session)
+
+                return redirect(url_for('dashboard', username=username,role=role))
             else:
-                flash("Invalid credentials. Please try again.")
-                return render_template('login.html')
+                error = "Invalid credentials. Please try again."
+                return render_template('login.html',error= error)
         else:
-            flash("Error communicating with the database microservice")
+            error = "Error communicating with the database microservice"
+            return render_template('login.html',error= error)
 
     return render_template('login.html')
 
@@ -38,13 +44,14 @@ def login():
 def dashboard(username):
     if 'username' not in session or session['username'] != username:
         return redirect(url_for('login'))  
-    
-    return render_template('dashboard.html', username=username)
+    return render_template('dashboard.html', username=username, role=session.get('role'))
 
 @app.route('/logout')
 def logout():
     session.pop('username', None)
+    session.pop('role', None)
     return redirect(url_for('login'))
+
 
 
 @app.route('/forget', methods=['GET', 'POST'])
@@ -60,7 +67,7 @@ def add_user():
         response = requests.post('http://localhost:5002/add_user', json=({'email':email,'role':role}))  # Send data directly as JSON
         print(response.status_code)
  
-    return render_template('add.html')
+    return render_template('add.html',role=session.get('role'))
 
 if __name__ == '__main__':
     app.run(debug=True,port=5000)

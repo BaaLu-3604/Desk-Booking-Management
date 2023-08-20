@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     {% block meta%}{% endblock %}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
@@ -18,50 +18,67 @@
         </div>
         <nav aria-label="header_nav" class="header_nav">
             <ul>
+                
                 <li><a href="{{url_for('home')}}">Home</a></li>
                 <li><a href="#">About</a></li>
                 <li><a href="{{url_for('home')}}#services">Services</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="login-container">
+                <li><a href="#">Contact</a></li><div class="login-container">
             {% if 'username' not in session %}
-            <a href="{{ url_for('login') }}"><button class="login-button" id="loginButton">Login</button></a>
+            <a href="{{ url_for('login') }}"><button class="login-button"
+                    id="loginButton">Login</button></a>
             {% else %}
-            <a href="{{ url_for('logout') }}"><button class="login-button" id="logoutButton">Logout</button></a>
+            <a href="{{ url_for('logout') }}"><button class="login-button"
+                    id="logoutButton">Logout</button></a>
             {% endif %}
         </div>
+            </ul>
+        </nav>
+        
+
     </header>
 
     {% if 'username' in session %}
     <nav aria-label="" class="dashboard-nav">
         <ul>
-            <li><a href="#">Dashboard</a></li>
+            <li><a href="{{ url_for('home')}}">Dashboard</a></li>
             <li><a href="#">Book Desk</a></li>
             <li><a href="#">Cancel Desk</a></li>
-            <li id="user-management" class="menu-item">
-                <a href="#">User Management</a>
-                <ul class="sub-menu collapsed">
-                    <li><a href="{{ url_for('add_user') }}">Add User</a></li>
-                    <li><a href="#">Remove User</a></li>
-                </ul>
+            <li><a href="#">Issue Report</a></li>
+
+            {% if role == 'Admin' %}
+            <li class="admin-option">
+                <div class="main-option">
+                    <input type="checkbox" id="toggle1" class="option-toggle">
+                    <label for="toggle1" class="option-label">User Management <span
+                            class="arrow">&#10095;</span></label>
+                    <ul class="sub-options">
+                        <li><a class="sub-option" href="{{ url_for('add_user') }}">Add User</a></li>
+                        <li><a class="sub-option" href="#">Remove User</a></li>
+                    </ul>
+                </div>
             </li>
-            <li id="resource-management" class="menu-item">
-                <a href="#">Resource Management</a>
-                <ul class="sub-menu collapsed">
-                    <li><a href="{{ url_for('add_user') }}">Add Resource</a></li>
-                    <li><a href="#">Remove Resource</a></li>
-                    <li><a href="#">Block Resource</a></li>
-                </ul>
+            <li class="admin-option">
+                <div class="main-option">
+                    <input type="checkbox" id="toggle2" class="option-toggle">
+                    <label for="toggle2" class="option-label">Resource Management <span
+                            class="arrow">&#10095;</span></label>
+                    <ul class="sub-options">
+                        <li><a class="sub-option" href="#">Add Resource</a></li>
+                        <li><a class="sub-option" href="#">Remove Resource</a></li>
+                    </ul>
+                </div>
             </li>
             <li><a href="#">View Issues</a></li>
+            {% endif %}
+            {% if role in ['Admin','Manager'] %}
             <li><a href="#">Generate Reports</a></li>
+            {% endif %}
         </ul>
     </nav>
     {% endif %}
     <div class="main-container">
         <article>{% block content %}{% endblock %}</article>
-    
+
     </div>
     <footer>
         <div class="copyright">

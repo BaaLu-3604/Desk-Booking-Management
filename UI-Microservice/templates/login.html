@@ -17,12 +17,16 @@
 	<div class="login-form">
 		<h1>LOGIN</h1>
 		<form method="post">
-			<input placeholder="Username" type="text" class="username" name="username" required /><br />
+			<input placeholder="Username" type="email" class="username" name="username" required /><br />
 			<input placeholder="Password" type="password" class="password" name="password" required /><br />
 			<input id="login-btn" type="submit" value="Login" />
+			<p style="color: tomato;">{{error}}</p>
+			<a href="{{ url_for('forget_password') }}" value="">Forget Password</a>
 		</form>
-		<a href="{{ url_for('forget_password') }}" value="">Forget Password</a>
+		
+		
 	</div>
 
+	
 </main>
 {% endblock %}

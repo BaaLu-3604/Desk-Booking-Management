@@ -10,7 +10,7 @@ app = Flask(__name__)
 client = MongoClient('mongodb://localhost:27017/')
 db = client['login_db']
 users = db['users']
-users.create_index([('username', 1),('email',1)], unique=True)  # Set username as a unique index
+users.create_index([('username', 1)], unique=True)  # Set username as a unique index
 
 @app.route('/check_credentials', methods=['POST'])
 def check_credentials():
@@ -18,12 +18,15 @@ def check_credentials():
     username = data['username']
     password = data['password']
     # Find the user in the database
+    
     user = users.find_one({'username': username})
 
     if user:
         hashed_password = user['password']
         if bcrypt.checkpw(password.encode('utf-8'), hashed_password):
-            return jsonify({'authenticated': True})
+            role = user.get('role', None) 
+            if role:
+                return jsonify({'authenticated': True, 'role': role})
     return jsonify({'authenticated': False})
 
 
@@ -39,20 +42,19 @@ def add_user():
         return jsonify({"message": "User already exists"}), 400
     
     random_number_string = ''.join(random.choice(string.digits) for _ in range(7))
-    G_password = "AD"+random_number_string
+    password = "AD"+random_number_string
     
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
     user = {
         'username': email,
+        'emp-id': password,
         'role': role,
-        'password': G_password
+        'password': hashed_password
     }
     users.insert_one(user)
     
     return jsonify({"message": "User added successfully"}), 201
-
-
-
-
 
 if __name__ == '__main__':
     app.run(debug=True,port=5003)

@@ -13,9 +13,10 @@ def login():
     response = requests.post('http://localhost:5003/check_credentials', json={'username': username, 'password': password})
     if response.status_code == 200:
         result = response.json()
+        print(result)
         return result
     else:
-        flash("Error communicating with the database microservice")
+        return "Error communicating with the database microservice"
 
 @app.route('/forget', methods=['GET', 'POST'])
 def forget_password():
