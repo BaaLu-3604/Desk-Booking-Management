@@ -1,32 +1,36 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} 
 
-{% block title %}Login Page{% endblock %}
+{% block title %}Login Page{% endblock %} 
 
 {% block meta %}
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-{% endblock %}
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+{% endblock %} {% block content %}
+<div class="position-relative" style="margin-top: 6%">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="border p-4">
+                <h1 class="text-center mb-4">Login</h1>
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="pwd" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Enter your password" required />
+                    </div>
+                    <div class="mt-3 d-flex justify-content-center">
+                        <button class="btn fw-bold btn-primary">Login</button>
+                    </div>
+                    <p class="text-center mt-3" style="color: tomato">{{error}}</p>
+                    <p class="text-center mt-3">
+                        <a class="nav-link fw-bold text-primary" href="{{ url_for('forget_password') }}">Forgot Password?</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-{% block stylesheets %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
-{% endblock %}
 
-{% block content %}
-
-<main class="content">
-	
-	<div class="login-form">
-		<h1>LOGIN</h1>
-		<form method="post">
-			<input placeholder="Username" type="email" class="username" name="username" required /><br />
-			<input placeholder="Password" type="password" class="password" name="password" required /><br />
-			<input id="login-btn" type="submit" value="Login" />
-			<p style="color: tomato;">{{error}}</p>
-			<a href="{{ url_for('forget_password') }}" value="">Forget Password</a>
-		</form>
-		
-		
-	</div>
-
-	
-</main>
 {% endblock %}

@@ -14,14 +14,16 @@ def add_user():
     else:
         return "Error communicating with the database microservice"
 
-# @app.route('/remove_user', methods=['POST'])
-# def remove_user():
-#     username = request.form['username']
+@app.route('/remove_user', methods=['POST'])
+def remove_user():
+    data = request.json
+    response = requests.post('http://localhost:5003/remove_user', json=data)
 
-#     # Remove the user with the specified username.
-#     users.delete_one({'username': username})
-
-#     return redirect(url_for('user_list'))
+    if response.status_code == 200:
+        result = response.json()
+        return result
+    else:
+        return "Error communicating with the database microservice"
 
 if __name__ == '__main__':
     app.run(debug=True, port=5002)

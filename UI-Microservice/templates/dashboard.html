@@ -1,18 +1,19 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} 
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Dashboard{% endblock %} 
 
-{% block stylesheets %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}" />
-{% endblock %}
-
-{% block content %}
-{% block main %}
-<h2>{{ username }}Welcome ..! 
-</h2>
-<p>Username: {{ username }}</p>
-<p>Role: {{ role }}</p>
-{% endblock %}
-
-
+{% block content %} 
+<div class="container position-absolute top-0 start-50 translate-middle" style="margin-top: 15%;">
+    {% if 'username' in session %}
+        <div class = "p-0 my-5 bg-white text-dark">
+            <h2>Welcome ..!<br>{{ username }}</h2>
+            <p>Username: {{ username }}</p>
+            <p>Role: {{ role }}</p>
+        </div>
+    {% else %}
+    <div class = "p-3 my-5 w-auto rounded-3 fw-bold bg-danger text-white">
+        <p>Session Expired Please Login ..!</p>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

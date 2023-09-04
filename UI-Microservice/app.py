@@ -17,7 +17,7 @@ def login():
 
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']
+        password = request.form['pwd']
 
         response = requests.post('http://localhost:5001/login', json={'username': username, 'password': password})
         if response.status_code == 200:
@@ -50,7 +50,7 @@ def dashboard(username):
 def logout():
     session.pop('username', None)
     session.pop('role', None)
-    return redirect(url_for('login'))
+    return redirect(url_for('home'))
 
 
 
@@ -65,9 +65,38 @@ def add_user():
         role = request.form['role']
         
         response = requests.post('http://localhost:5002/add_user', json=({'email':email,'role':role}))  # Send data directly as JSON
-        print(response.status_code)
+        if response.status_code == 200:
+            message = "User Added successfully"
+            return render_template('add_user.html',role=session.get('role'),error= message)
+
+        else:
+            error = "User Already exists" 
+            return render_template('add.html',role=session.get('role'),error= error)
+    return render_template('add_user.html',role=session.get('role'))
+
+@app.route('/remove_user', methods=['GET','POST'])
+def remove_user():
+    if request.method == 'POST':
+        email = request.form['email']
+        role = request.form['role']
+        
+        response = requests.post('http://localhost:5002/remove_user', json=({'email':email,'role':role}))  # Send data directly as JSON
+        if response.status_code == 200:
+            message = "User Removed successfully"
+            return render_template('remove_user.html',role=session.get('role'),error= message)
  
-    return render_template('add.html',role=session.get('role'))
+        else:
+            error = "No User exists" 
+            return render_template('remove_user.html',role=session.get('role'),error= error)
+    return render_template('remove_user.html',role=session.get('role'))
+
+@app.route('/add_resource', methods=['GET','POST'])
+def add_resource():
+    return render_template('add_resource.html',role=session.get('role'))
+
+@app.route('/remove_resource', methods=['GET','POST'])
+def remove_resource():
+    return render_template('add_resource.html',role=session.get('role'))
 
 if __name__ == '__main__':
     app.run(debug=True,port=5000)

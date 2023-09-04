@@ -7,53 +7,75 @@
 {% endblock %}
 
 {% block content %}
-<div class="paragraph">
-  <h1>Smart Desk Booking and Management</h1>
-  <p>
-    Desk Booking Management is a reliable platform that offers hassle-free
-    desk booking solutions for businesses. With easy-to-use features, team
-    members and managers can book desks, cancel bookings, and report any
-    issues. Additionally, the platform generates comprehensive reports on desk
-    usage, providing valuable insights for efficient workspace management.
-    members and managers can book desks, cancel bookings, and report any
-    issues. Additionally, the platform generates comprehensive reports on desk
-    usage, providing valuable insights for efficient workspace management.
-    members and managers can book desks, cancel bookings, and report any
-    issues. Additionally, the platform generates comprehensive reports on desk
-    usage, providing valuable insights for efficient workspace management.
-  </p>
-  <img style="width: 500px;" id="1" alt="desk-image" src="./static/images/1.png">
-  <p>
-    Our platform offers seamless desk booking capabilities, allowing team
-    members to easily reserve a desk that suits their needs.
-  </p>
-  <div>
-    <h1 id="services">Services</h1>
-    <h2>Desk Booking</h2>
-    <p>
-      Our platform offers seamless desk booking capabilities, allowing team
-      members to easily reserve a desk that suits their needs.
-    </p>
+{% if 'username' in session %}
+<div class="container m-5">
+{% endif %}
+	<div id="home" class="container-fluid bg-body-tertiary" style="padding:100px 40px;">
+		<h1>Smart Desk Booking and Management</h1>
+		<p> Desk Booking Management is a reliable platform that offers hassle-free
+			desk booking solutions for businesses. With easy-to-use features, team
+			members and managers can book desks, cancel bookings, and report any
+			issues. Additionally, the platform generates comprehensive reports on desk
+			usage, providing valuable insights for efficient workspace management.</p>
+		<img style="width: 500px; justify-content: right;" class="img-fluid"  alt="desk-image" src="./static/images/1.png">
+		<p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and
+			look at
+			the navigation bar while scrolling!</p>
+		</div>
+		
+		<div id="About" class="container-fluid bg-success text-white" style="padding:100px 40px;">
+			<h1>About</h1>
+			<p>Desk Usage Reporting Our advanced analytics provide managers with
+				comprehensive reports on desk usage, allowing them to optimize workspace
+				allocation and increase productivity. Features Efficient Desk Booking With
+				our Desk Booking Management system, team members can easily book their
+				preferred desk or seat in the office. From individual desks to collaborative
+				workspaces, our platform provides seamless desk booking options to ensure
+				everyone has a comfortable and productive workspace. Flexibility for
+				Managers Our Desk Booking Management empowers managers with the ability to
+				oversee and manage the desk booking process. They can easily assign desks to
+				team members, track availability, and make necessary changes as per the
+				team's requirements. This flexibility ensures optimal utilization of</p>
+				<img style="width: 500px; justify-content: right;" class="img-fluid"  alt="desk-image" src="./static/images/1.png">
+			<p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+		  </div>
+	<div id="services" class="container-fluid bg-secondary text-white" style="padding:100px 40px;">
+		<h1>Services</h1>
+		<p>Desk Usage Reporting Our advanced analytics provide managers with
+			comprehensive reports on desk usage, allowing them to optimize workspace
+			allocation and increase productivity. Features Efficient Desk Booking With
+			our Desk Booking Management system, team members can easily book their
+			preferred desk or seat in the office. From individual desks to collaborative
+			workspaces, our platform provides seamless desk booking options to ensure
+			everyone has a comfortable and productive workspace. Flexibility for
+			Managers Our Desk Booking Management empowers managers with the ability to
+			oversee and manage the desk booking process. They can easily assign desks to
+			team members, track availability, and make necessary changes as per the
+			team's requirements. This flexibility ensures optimal utilization of</p>
+			<img style="width: 500px; justify-content: right;" class="img-fluid"  alt="desk-image" src="./static/images/1.png">
+		<p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and
+			look at
+			the navigation bar while scrolling!</p>
+	</div>
+	<div id="Contact" class="container-fluid bg-white text-dark" style="padding:100px 40px;">
+		<h1>Contact</h1>
+		<p>Desk Usage Reporting Our advanced analytics provide managers with
+			comprehensive reports on desk usage, allowing them to optimize workspace
+			allocation and increase productivity. Features Efficient Desk Booking With
+			our Desk Booking Management system, team members can easily book their
+			preferred desk or seat in the office. From individual desks to collaborative
+			workspaces, our platform provides seamless desk booking options to ensure
+			everyone has a comfortable and productive workspace. Flexibility for
+			<img style="width: 500px; justify-content: right;" class="img-fluid"  alt="desk-image" src="./static/images/1.png">
+			Managers Our Desk Booking Management empowers managers with the ability to
+			oversee and manage the desk booking process. They can easily assign desks to
+			team members, track availability, and make necessary changes as per the
+			team's requirements. This flexibility ensures optimal utilization of</p>
+		<p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and
+			look at
+			the navigation bar while scrolling!</p>
+	</div>
 
-    <h2>Cancellation Management</h2>
-    <p>
-      We provide a user-friendly cancellation feature, enabling team members to
-      easily cancel their booked desks when plans change.
-    </p>
-  </div>
 
-  <img id="1" alt="desk-image" src="./static/images/1.png">
 
-  Desk Usage Reporting Our advanced analytics provide managers with
-  comprehensive reports on desk usage, allowing them to optimize workspace
-  allocation and increase productivity. Features Efficient Desk Booking With
-  our Desk Booking Management system, team members can easily book their
-  preferred desk or seat in the office. From individual desks to collaborative
-  workspaces, our platform provides seamless desk booking options to ensure
-  everyone has a comfortable and productive workspace. Flexibility for
-  Managers Our Desk Booking Management empowers managers with the ability to
-  oversee and manage the desk booking process. They can easily assign desks to
-  team members, track availability, and make necessary changes as per the
-  team's requirements. This flexibility ensures optimal utilization of
-</div>
-{% endblock %}
+	{% endblock %}
