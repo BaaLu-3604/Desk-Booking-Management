@@ -52,8 +52,6 @@ def logout():
     session.pop('role', None)
     return redirect(url_for('home'))
 
-
-
 @app.route('/forget', methods=['GET', 'POST'])
 def forget_password():
     return render_template('forget.html')
