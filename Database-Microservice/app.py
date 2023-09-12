@@ -27,6 +27,7 @@ def check_credentials():
         #     # Redirect the user to the reset password page
         #     return jsonify({'reset_password_required': True})
         # Regular login
+
         if bcrypt.checkpw(password.encode('utf-8'), hashed_password):
             role = user.get('role', None) 
             if role:
