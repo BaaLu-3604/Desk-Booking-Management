@@ -3,17 +3,11 @@
 {% block title %}Dashboard{% endblock %} 
 
 {% block content %} 
-<div class="container position-absolute top-0 start-50 translate-middle" style="margin-top: 15%;">
-    {% if 'username' in session %}
-        <div class = "p-0 my-5  text-dark">
-            <h2>Welcome ..!<br>{{ username }}</h2>
+<div class="container">
+    <div style="margin: 80px 250px;">
+            <h2>Welcome ..!  {{ username }}</h2>
             <p>Username: {{ username }}</p>
             <p>Role: {{ role }}</p>
         </div>
-    {% else %}
-    <div class = "p-3 my-5 w-auto rounded-3 fw-bold bg-danger text-white">
-        <p>Session Expired Please Login ..!</p>
-    </div>
-    {% endif %}
 </div>
 {% endblock %}
