@@ -45,7 +45,12 @@ def add_user():
         return jsonify({"message": "User already exists"}), 400
     
     random_number_string = ''.join(random.choice(string.digits) for _ in range(7))
-    password = "AD"+random_number_string
+    if role == 'Admin':
+        password = "AD"+random_number_string
+    if role == 'Manager':
+        password = "MN"+random_number_string
+    if role == 'Team Member':
+        password = "TM"+random_number_string
     
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
