@@ -113,9 +113,9 @@
                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     User Management<i class="material-icons">&#xe5c5;</i>
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="userManagementDropdown">
-                                    <li><a class="dropdown-item " href="{{ url_for('add_user') }}">Add User</a></li>
-                                    <li><a class="dropdown-item " href="{{ url_for('remove_user')}}">Remove User</a>
+                                <ul class="dropdown-menu bg-primary" aria-labelledby="userManagementDropdown">
+                                    <li><a class="dropdown-item" href="{{ url_for('add_user') }}">Add User</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('remove_user')}}">Remove User</a>
                                     </li>
                                 </ul>
                             </li>
@@ -125,6 +125,8 @@
                                     Resource Management<i class="material-icons">&#xe5c5;</i>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="resourceManagementDropdown">
+                                    <li><a class="dropdown-item" href="#">Manage Resource</a>
+                                    </li>
                                     <li><a class="dropdown-item" href="{{ url_for('add_resource') }}">Add Resource</a>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ url_for('remove_user')}}">Remove Resource</a>

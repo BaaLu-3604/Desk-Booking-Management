@@ -10,7 +10,7 @@ def login():
     username = data['username']
     password = data['password']
 
-    response = requests.post('http://localhost:5003/check_credentials', json={'username': username, 'password': password})
+    response = requests.post('http://localhost:5004/check_credentials', json={'username': username, 'password': password})
     if response.status_code == 200:
         result = response.json()
         print(result)
@@ -25,4 +25,4 @@ def forget_password():
 
 
 if __name__ == '__main__':
-    app.run(debug=True,port=5001)
+    app.run(debug=True,port=5002,host='0.0.0.0')

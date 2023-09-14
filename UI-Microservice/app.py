@@ -18,7 +18,7 @@ def login():
         username = request.form['username']
         password = request.form['pwd']
 
-        response = requests.post('http://localhost:5001/login', json={'username': username, 'password': password})
+        response = requests.post('http://localhost:5002/login', json={'username': username, 'password': password})
         if response.status_code == 200:
             result = response.json()
 
@@ -61,7 +61,7 @@ def add_user():
         email = request.form['email']
         role = request.form['role']
         
-        response = requests.post('http://localhost:5002/add_user', json=({'email':email,'role':role}))
+        response = requests.post('http://localhost:5003/add_user', json=({'email':email,'role':role}))
         if response.status_code == 200:
             message = "User Added successfully"
             return render_template('add_user.html',role=session.get('role'),error= message)
@@ -73,14 +73,14 @@ def add_user():
 
 @app.route('/remove_user', methods=['GET','POST'])
 def remove_user():
-    if session and session.get('role') != 'admin':
+    if session and session.get('role') != 'Admin':
         message = "You do not have permission to Remove users!"
         return render_template('error.html',role=session.get('role'),error= message)
     if request.method == 'POST':
         email = request.form['email']
         role = request.form['role']
         
-        response = requests.post('http://localhost:5002/remove_user', json=({'email':email,'role':role}))  
+        response = requests.post('http://localhost:5003/remove_user', json=({'email':email,'role':role}))  
         if response.status_code == 200:
             message = "User Removed successfully"
             return render_template('remove_user.html',role=session.get('role'),error= message)
@@ -100,4 +100,4 @@ def remove_resource():
     return render_template('add_resource.html',role=session.get('role'))
 
 if __name__ == '__main__':
-    app.run(debug=True,port=5000)
+    app.run(debug=True,host= '0.0.0.0',port=5005)

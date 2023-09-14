@@ -12,35 +12,13 @@
                     <h1 class="text-center mb-4">Add Resource</h1>
                     <form method="post">
                         <div class="mb-3">
-                            <label for="deskName" class="form-label">Desk Name</label>
-                            <input type="text" class="form-control" id="deskName" name="deskName"
-                                placeholder="Enter Desk name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Available Resources</label>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="resources[]" id="mouseCheckbox"
-                                            value="Mouse">
-                                        <label class="form-check-label" for="mouseCheckbox">Mouse</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="resources[]" id="monitorCheckbox"
-                                            value="Dual Monitor">
-                                        <label class="form-check-label" for="monitorCheckbox">Dual Monitor</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="resources[]" id="keyboardCheckbox"
-                                            value="Keyboard">
-                                        <label class="form-check-label" for="keyboardCheckbox">Keyboard</label>
-                                    </div>
-                                </div>
-                            </div>
+                            <label for="buildingName" class="form-label">Building Name</label>
+                            <select name="buildingName" id="buildingName" class="form-select">
+                                <option value="select">--select--</option>
+                                <option value="Deccan Park">Deccan Park</option>
+                                <option value="Synergy Park">Synergy Park</option>
+                                <option value="Kohinoor Park">Kohinoor Park</option>
+                            </select>
                         </div>
                         
                         <div class="mb-3">
@@ -50,12 +28,6 @@
                                 <option value="false">Not Available</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="quantity" class="form-label">Quantity</label>
-                            <input type="number" class="form-control" id="quantity" name="quantity"
-                                placeholder="Enter quantity" required>
-                        </div>
-                        <!-- Add more fields as needed -->
                         <p class="text-center mb-3" style="color: tomato;">{{error}}</p>
                         <div class="d-flex justify-content-center">
                             <input type="submit" class="btn fw-bold btn-primary" value="Add Resource">

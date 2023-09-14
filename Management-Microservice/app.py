@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
     data = request.json
-    response = requests.post('http://localhost:5003/add_user', json=data)
+    response = requests.post('http://localhost:5004/add_user', json=data)
 
     if response.status_code == 200:
         result = response.json()
@@ -18,7 +18,7 @@ def add_user():
 @app.route('/remove_user', methods=['POST'])
 def remove_user():
     data = request.json
-    response = requests.post('http://localhost:5003/remove_user', json=data)
+    response = requests.post('http://localhost:5004/remove_user', json=data)
 
     if response.status_code == 200:
         result = response.json()
@@ -27,4 +27,4 @@ def remove_user():
         return "Error communicating with the database microservice"
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5002)
+    app.run(debug=True, port=5003,host='0.0.0.0')
