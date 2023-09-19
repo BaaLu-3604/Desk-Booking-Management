@@ -1,0 +1,183 @@
+{% extends 'layout.html' %}
+
+{% block title %}Book Desk{% endblock %}
+
+{% block content %}
+{% if 'username' in session %}
+
+
+<div class="contain">
+    <div class="column">  
+
+<div class="container " style="margin-top: 20% ;">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="border p-3">
+                <h2 class="text-center mb-1">Book Desk</h2>
+                <form method="post">
+                    <div class="mb-2">
+                        <label for="email"  class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>     
+                    </div>
+
+                    <div class="mb-5">
+                        <label for="Select date" class="form-label">Select date</label>
+                        <div class="input-group date">
+                            <input type="text" id="datepicker" name="datepicker" class="form-control">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $('#datepicker').datepicker();
+                        });
+                    </script>
+
+                    <div class="mb-3">
+                        <label for="Booking" class="form-label">Booking</label><br>
+                        <div style="text-align: center; ">
+                            <select name="Booking" id="Booking" class="form-select">
+                            <option value="Book for individual">Book for individual</option>
+                            <option value="Book for team">Book for team</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="Building" class="form-label">Building</label><br>
+                        <div style="text-align: center; ">
+                            <select name="Building" id="Building" class="form-select">
+                            <option value="select">--select--</option>
+                            <option value="Deccan Park">Deccan Park</option>
+                            <option value="synergy Park">synergy Park</option>
+                            <option value="Kohinoor Park">Kohinoor Park</option>
+                        </div>
+                        </select>
+
+                    </div> 
+                    <p class="text-center mb-3" style="{{color}}">{{error}}</p>
+                    <div class="d-flex justify-content-center" style="margin-top: 15%">
+                        <input type="submit" class="btn fw-bold btn-primary" value="Show avialble desks">
+                    </div>                   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+    <div class="office">
+        <!-- Rooms -->
+        <div class="room" style="top: 50px; left: 50px; width: 150px; height: 150px;"></div>
+        <div class="room" style="top: 50px; left: 250px; width: 150px; height: 150px;"></div>
+        <div class="room" style="top: 50px; left: 450px; width: 150px; height: 150px;"></div>
+        
+
+        <!-- Desks -->
+        <div class="desk" style="top: 80px; left: 70px;"></div>
+        <div class="desk" style="top: 130px; left: 70px;"></div>
+        <div class="desk" style="top: 80px; left: 140px;"></div>
+        <div class="desk" style="top: 130px; left: 140px;"></div>
+
+        <div class="desk" style="top: 80px; left: 270px;"></div>
+        <div class="desk" style="top: 130px; left: 340px;"></div>
+        <div class="desk" style="top: 80px; left: 340px;"></div>
+        <div class="desk" style="top: 130px; left: 270px;"></div>
+
+        <div class="desk" style="top: 80px; left: 470px;"></div>
+        <div class="desk" style="top: 130px; left: 540px;"></div>
+        <div class="desk" style="top: 80px; left: 540px;"></div>
+        <div class="desk" style="top: 130px; left: 470px;"></div>
+
+
+        <div class="room" style="top: 250px; left: 50px; width: 150px; height: 150px;"></div>
+        <div class="room" style="top: 250px; left: 250px; width: 150px; height: 150px;"></div>
+        <div class="room" style="top: 250px; left: 450px; width: 150px; height: 150px;"></div>
+
+        <!-- Desks -->
+        <div class="desk" style="top: 280px; left: 70px;"></div>
+        <div class="desk" style="top: 330px; left: 70px;"></div>
+        <div class="desk" style="top: 280px; left: 140px;"></div>
+        <div class="desk" style="top: 330px; left: 140px;"></div>
+
+        <div class="desk" style="top: 280px; left: 270px;"></div>
+        <div class="desk" style="top: 330px; left: 340px;"></div>
+        <div class="desk" style="top: 280px; left: 340px;"></div>
+        <div class="desk" style="top: 330px; left: 270px;"></div>
+
+        <div class="desk" style="top: 280px; left: 470px;"></div>
+        <div class="desk" style="top: 330px; left: 540px;"></div>
+        <div class="desk" style="top: 280px; left: 540px;"></div>
+        <div class="desk" style="top: 330px; left: 470px;"></div>
+
+    </div>
+
+    <script>
+        // Function to show desk details and book the selected desk
+        function bookDesk(deskNumber) {
+            const deskStatusElement = document.getElementById("deskStatus");
+
+            // Check if the desk is already booked
+            if (deskStatusElement.textContent === `Desk ${deskNumber} Status: Booked`) {
+                deskStatusElement.textContent = `Desk ${deskNumber} is already booked.`;
+            } else {
+                deskStatusElement.textContent = `Desk ${deskNumber} Status: Booked`;
+            }
+        }
+
+        // Add click event listeners to desk elements
+        const desks = document.querySelectorAll(".desk");
+        desks.forEach((desk, index) => {
+            desk.addEventListener("click", () => {
+                const deskNumber = index + 1;
+                const deskDetailsElement = document.getElementById("deskDetails");
+                deskDetailsElement.textContent = `Desk ${deskNumber} For one person.`;
+
+                // Prompt user to confirm booking
+                if (confirm(`Do you want to book Desk ${deskNumber}?`)) {
+                    bookDesk(deskNumber);
+                }
+            });
+        });
+    </script>
+
+    <div id="deskStatus">
+        <!-- Desk status will be displayed here -->
+    </div>
+
+
+
+<div class="contain">
+    <div class="column">
+        <div class="container" style="margin-top: 20% ;">
+            <div class="row justify-content-right">
+                <div class="col-md-12">
+                    <div class="border p-3">
+                        <h2 class="text-center mb-4">Booked Desk</h2><br>
+                        <h6 style="color: rgb(106, 43, 194);">Booked details</h6><br><br>
+                        <h6><p>Building name<br><br>Date<br><br>Block and desk number</p><br></h6>
+                        <div class="d-flex justify-content-center" style="margin-top: 15%;">
+                            <input type="submit" class="btn fw-bold btn-primary" value="Cancel">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% else %}
+<div class="p-3 w-25 offset-5 my-5 rounded-3 fw-bold bg-danger text-white">
+    <p>Session Expired Please Login ..!</p>
+</div>
+{% endif %}
+
+{% endblock %}
+
+
