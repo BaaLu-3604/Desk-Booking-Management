@@ -9,8 +9,8 @@
 {% block content %}
 {% if 'username' in session %}
 <div class="container m-5">
-{% endif %}
-	<div id="home" class="container-fluid bg-body-tertiary" style="padding:100px 40px;">
+	{% endif %}
+	<div id="home" class="container-fluid bg-body-tertiary" style="padding:130px 40px;">
 		<h1>Smart Desk Booking and Management</h1>
 		<p> Desk Booking Management is a reliable platform that offers hassle-free
 			desk booking solutions for businesses. With easy-to-use features, team
@@ -23,7 +23,7 @@
 			the navigation bar while scrolling!</p>
 		</div>
 		
-		<div id="About" class="container-fluid bg-success text-white" style="padding:100px 40px;">
+		<div id="About" class="container-fluid bg-success text-white" style="padding:130px 40px;">
 			<h1>About</h1>
 			<p>Desk Usage Reporting Our advanced analytics provide managers with
 				comprehensive reports on desk usage, allowing them to optimize workspace
@@ -39,7 +39,7 @@
 				<img style="width: 500px; justify-content: right;" class="img-fluid"  alt="desk-image" src="./static/images/1.png">
 			<p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
 		  </div>
-	<div id="services" class="container-fluid bg-secondary text-white" style="padding:100px 40px;">
+	<div id="services" class="container-fluid bg-secondary text-white" style="padding:130px 40px;">
 		<h1>Services</h1>
 		<p>Desk Usage Reporting Our advanced analytics provide managers with
 			comprehensive reports on desk usage, allowing them to optimize workspace
@@ -57,7 +57,7 @@
 			look at
 			the navigation bar while scrolling!</p>
 	</div>
-	<div id="Contact" class="container-fluid bg-white text-dark" style="padding:100px 40px;">
+	<div id="Contact" class="container-fluid bg-white text-dark" style="padding:130px 40px;">
 		<h1>Contact</h1>
 		<p>Desk Usage Reporting Our advanced analytics provide managers with
 			comprehensive reports on desk usage, allowing them to optimize workspace
@@ -74,5 +74,5 @@
 		<p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and
 			look at
 			the navigation bar while scrolling!</p>
-	</div>
+  </div>
 	{% endblock %}

@@ -1,9 +1,8 @@
-from flask import Flask, flash, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session
 import requests
 import os
 
 app = Flask(__name__)
-
 app.secret_key = os.urandom(24)
 
 @app.route('/')
@@ -27,9 +26,6 @@ def login():
                 session['username'] = username
                 role = result['role']
                 session['role'] = role
-
-                print("Session Data:", session)
-
                 return redirect(url_for('dashboard', username=username,role=role))
             else:
                 error = "Invalid credentials. Please try again."
@@ -52,19 +48,20 @@ def logout():
     session.pop('role', None)
     return redirect(url_for('home'))
 
-
-
 @app.route('/forget', methods=['GET', 'POST'])
 def forget_password():
     return render_template('forget.html')
 
 @app.route('/add_user', methods=['GET','POST'])
 def add_user():
+    if session and session.get('role') != 'Admin':
+        message = "You do not have permission to add users!"
+        return render_template('error.html',role=session.get('role'),error= message)
     if request.method == 'POST':
         email = request.form['email']
         role = request.form['role']
         
-        response = requests.post('http://localhost:5002/add_user', json=({'email':email,'role':role}))  # Send data directly as JSON
+        response = requests.post('http://localhost:5002/add_user', json=({'email':email,'role':role}))
         if response.status_code == 200:
             message = "User Added successfully"
             return render_template('add_user.html',role=session.get('role'),error= message)
@@ -76,11 +73,14 @@ def add_user():
 
 @app.route('/remove_user', methods=['GET','POST'])
 def remove_user():
+    if session and session.get('role') != 'admin':
+        message = "You do not have permission to Remove users!"
+        return render_template('error.html',role=session.get('role'),error= message)
     if request.method == 'POST':
         email = request.form['email']
         role = request.form['role']
         
-        response = requests.post('http://localhost:5002/remove_user', json=({'email':email,'role':role}))  # Send data directly as JSON
+        response = requests.post('http://localhost:5002/remove_user', json=({'email':email,'role':role}))  
         if response.status_code == 200:
             message = "User Removed successfully"
             return render_template('remove_user.html',role=session.get('role'),error= message)
@@ -92,6 +92,7 @@ def remove_user():
 
 @app.route('/add_resource', methods=['GET','POST'])
 def add_resource():
+    
     return render_template('add_resource.html',role=session.get('role'))
 
 @app.route('/remove_resource', methods=['GET','POST'])
