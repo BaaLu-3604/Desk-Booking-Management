@@ -3,6 +3,7 @@ import requests
 
 app = Flask(__name__)
 
+
 @app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
     data = request.json
