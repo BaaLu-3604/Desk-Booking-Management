@@ -15,14 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-
     <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }        
 
         body::-webkit-scrollbar {
             display: none;
@@ -75,30 +68,41 @@
             flex-basis: calc(25% - 20px); 
             
         }
-
-        .office {
-            position: relative;
-            width: 4050px;
-            height: 250px;
-            margin: 10px auto;
-            
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
-        .room {
-            position: absolute;
+        .office {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 600px; /* Adjust as needed */
+            margin: 50px auto;
+            background-color: #f0f0f0;
+            border: 2px solid #ccc;
+            padding: 10px; /* Add some padding for spacing */
+            position: relative;
+        }
+        .room-container {
+            flex: 0 0 45%; /* Adjust the width of the rooms as needed */
+            margin: 5px;
             border: 2px solid #333;
             background-color: #ddd;
+            position: relative;
+        }
+        .room {
+            width: 100%;
+            height: 100%;
         }
         .desk {
-            position: absolute;
             width: 40px;
             height: 40px;
             background-color: #3498db;
             cursor: pointer;
+            position: absolute;
         }
-
-
-
-
 
 
     </style>
@@ -204,7 +208,7 @@
         </div>
     </div>
     {%endif %}
-    <div class="container m-2">
+    <div class="container-auto">
         <article">{% block content %}{% endblock %}</article>
     </div>
 
