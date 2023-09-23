@@ -5,7 +5,6 @@
 {% block content %}
 {% if 'username' in session %}
 
-
 <div class="contain">
     <div class="column">  
 
@@ -71,55 +70,31 @@
 </div>
 </div>
 
+<div class="contain">
+    
     <div class="office">
         <!-- Rooms -->
-        <div class="room" style="top: 50px; left: 50px; width: 150px; height: 150px;"></div>
-        <div class="room" style="top: 50px; left: 250px; width: 150px; height: 150px;"></div>
-        <div class="room" style="top: 50px; left: 450px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black; top: 50px; left: 50px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 50px; left: 250px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 50px; left: 450px; width: 150px; height: 150px;"></div>
         
 
         <!-- Desks -->
 
         <!-- Rooms -->
+        <div class="room" style=" border: 2px solid black;top: 250px; left: 50px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 250px; left: 250px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 250px; left: 450px; width: 150px; height: 150px;"></div>
        
         <!-- Desks -->
        
     </div>
-
-    <script>
-        // Function to show desk details and book the selected desk
-        function bookDesk(deskNumber) {
-            const deskStatusElement = document.getElementById("deskStatus");
-
-            // Check if the desk is already booked
-            if (deskStatusElement.textContent === `Desk ${deskNumber} Status: Booked`) {
-                deskStatusElement.textContent = `Desk ${deskNumber} is already booked.`;
-            } else {
-                deskStatusElement.textContent = `Desk ${deskNumber} Status: Booked`;
-            }
-        }
-
-        // Add click event listeners to desk elements
-        const desks = document.querySelectorAll(".desk");
-        desks.forEach((desk, index) => {
-            desk.addEventListener("click", () => {
-                const deskNumber = index + 1;
-                const deskDetailsElement = document.getElementById("deskDetails");
-                deskDetailsElement.textContent = `Desk ${deskNumber} For one person.`;
-
-                // Prompt user to confirm booking
-                if (confirm(`Do you want to book Desk ${deskNumber}?`)) {
-                    bookDesk(deskNumber);
-                }
-            });
-        });
-    </script>
-
-    <div id="deskStatus">
-        <!-- Desk status will be displayed here -->
-    </div>
+</div>
 
 
+
+
+   
 
 <div class="contain">
     <div class="column">
@@ -140,7 +115,6 @@
     </div>
 </div>
 
-
 {% else %}
 <div class="p-3 w-25 offset-5 my-5 rounded-3 fw-bold bg-danger text-white">
     <p>Session Expired Please Login ..!</p>
@@ -148,3 +122,4 @@
 {% endif %}
 
 {% endblock %}
+
