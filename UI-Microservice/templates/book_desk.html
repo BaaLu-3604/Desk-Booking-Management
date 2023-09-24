@@ -5,7 +5,7 @@
 {% block content %}
 {% if 'username' in session %}
 
-<div class="contain">
+<div class="contain" style= "background-image:url(./static/images/main2.jpg);">
     <div class="column">  
 
 <div class="container " style="margin-top: 20% ;">
@@ -70,31 +70,77 @@
 </div>
 </div>
 
-<div class="contain">
-    
-    <div class="office">
+<div class="contain">  
+    <div class="office" style=" display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); grid-gap: 60px;">
         <!-- Rooms -->
         <div class="room" style=" border: 2px solid black; top: 50px; left: 50px; width: 150px; height: 150px;"></div>
-        <div class="room" style=" border: 2px solid black;top: 50px; left: 250px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 50px; left: 100px; width: 150px; height: 150px;"></div>
         <div class="room" style=" border: 2px solid black;top: 50px; left: 450px; width: 150px; height: 150px;"></div>
-        
 
         <!-- Desks -->
+        <div class="desk" style=" border: 2px solid black; top: 50px; left: 50px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 110px; left: 50px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 50px; left: 100px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 110px; left: 100px;"></div>
 
+        <div class="desk" style=" border: 2px solid black; top: 50px; left: 260px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 110px; left: 260px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 50px; left:310px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 110px; left: 310px;"></div>
+
+        <div class="desk" style=" border: 2px solid black; top: 50px; left: 470px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 110px; left: 470px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 50px; left:520px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 110px; left: 520px;"></div>
+
+
+        <script>
+            const desks = document.querySelectorAll(".desk");
+            const room1 = document.getElementById("room1");
+            const room2 = document.getElementById("room2");
+            const room3 = document.getElementById("room3");
+
+            desks[0].addEventListener("click", () => {
+                // Associate desk 1 with room 1
+                desks[0].style.backgroundColor = "blue"; // Change desk color or style as needed
+                alert("Desk 1 is in Room 1");
+            });
+
+            desks[1].addEventListener("click", () => {
+                // Associate desk 2 with room 2
+                desks[1].style.backgroundColor = "red"; // Change desk color or style as needed
+                alert("Desk 2 is in Room 2");
+            });
+
+            desks[2].addEventListener("click", () => {
+                // Associate desk 3 with room 3
+                desks[2].style.backgroundColor = "green"; // Change desk color or style as needed
+                alert("Desk 3 is in Room 3");
+            });
+        </script>
         <!-- Rooms -->
         <div class="room" style=" border: 2px solid black;top: 250px; left: 50px; width: 150px; height: 150px;"></div>
         <div class="room" style=" border: 2px solid black;top: 250px; left: 250px; width: 150px; height: 150px;"></div>
         <div class="room" style=" border: 2px solid black;top: 250px; left: 450px; width: 150px; height: 150px;"></div>
        
-        <!-- Desks -->
+        <!-- Desks --> 
+        <div class="desk" style=" border: 2px solid black; top: 270px; left: 50px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 330px; left: 50px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 270px; left: 100px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 330px; left: 100px;"></div>
+
+        <div class="desk" style=" border: 2px solid black; top: 270px; left: 260px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 330px; left: 310px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 270px; left: 310px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 330px; left: 260px;"></div>
+
+        <div class="desk" style=" border: 2px solid black; top: 270px; left: 470px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 330px; left: 470px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 270px; left: 520px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 330px; left: 520px;"></div>
        
     </div>
 </div>
-
-
-
-
-   
 
 <div class="contain">
     <div class="column">
@@ -102,7 +148,7 @@
             <div class="row justify-content-right">
                 <div class="col-md-12">
                     <div class="border p-3">
-                        <h2 class="text-center mb-4"> My Bookings</h2><br>
+                        <h2 class="text-center mb-1"> My Bookings</h2><br>
                         <h6 style="color: rgb(106, 43, 194);">Booked details</h6><br><br>
                         <h6><p>Building name<br><br>Date<br><br>Block and desk number</p><br></h6>
                         <div class="d-flex justify-content-center" style="margin-top: 15%;">
