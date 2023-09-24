@@ -90,8 +90,22 @@ def add_resource():
         'resources':resource
     }
     resources.insert_one(data)
-    
-    return jsonify({"message": "User added successfully"}), 201
+  
+    return jsonify({"message": "Resource added successfully"}), 201
 
+@app.route('/book_desk', methods=['POST'])
+def book_desk():
+    data = request.json
+    email=data['Email']
+    Building = data['Building']
+    Select_date = data['Select_date']  
+    resource = {
+        'Occupied by': email,
+        'Building': Building,
+        'Select_date': Select_date,
+    }
+    resources.insert_one(resource)
+    return jsonify({"message": "Booked successfully"}), 201 
+  
 if __name__ == '__main__':
     app.run(debug=True,port=5004,host='0.0.0.0')

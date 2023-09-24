@@ -127,5 +127,22 @@ def logout():
     session.pop('username', None)
     return redirect('home')
 
+@app.route('/book_desk', methods=['GET','POST'])
+def book_desk():
+    if request.method == 'POST':
+        email = request.form['email']
+        Building = request.form['Building']
+        Select_date = request.form['datepicker']        
+        response = requests.post('http://localhost:5003/book_desk', json=({'Building':Building,'Select_date':Select_date,'Email':email}))
+        print(response.status_code)
+        if response.status_code == 201:
+            message = "Booked successfully"
+            return render_template('book_desk.html',role=session.get('role'),error= message,color= 'color:green;')
+        else:
+            error = "unsuccessful" 
+            return render_template('book_desk.html',role=session.get('role'),error= error,color= 'color:red;')
+    return render_template('book_desk.html',role=session.get('role'))
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5005)
