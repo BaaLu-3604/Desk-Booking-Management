@@ -73,7 +73,7 @@
 <div class="contain">  
     <div class="office" style=" display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); grid-gap: 60px;">
         <!-- Rooms -->
-        <div class="room" style=" border: 2px solid black; top: 50px; left: 50px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 50px; left: 50px; width: 150px; height: 150px;"></div>
         <div class="room" style=" border: 2px solid black;top: 50px; left: 100px; width: 150px; height: 150px;"></div>
         <div class="room" style=" border: 2px solid black;top: 50px; left: 450px; width: 150px; height: 150px;"></div>
 
@@ -94,30 +94,7 @@
         <div class="desk" style=" border: 2px solid black;top: 110px; left: 520px;"></div>
 
 
-        <script>
-            const desks = document.querySelectorAll(".desk");
-            const room1 = document.getElementById("room1");
-            const room2 = document.getElementById("room2");
-            const room3 = document.getElementById("room3");
-
-            desks[0].addEventListener("click", () => {
-                // Associate desk 1 with room 1
-                desks[0].style.backgroundColor = "blue"; // Change desk color or style as needed
-                alert("Desk 1 is in Room 1");
-            });
-
-            desks[1].addEventListener("click", () => {
-                // Associate desk 2 with room 2
-                desks[1].style.backgroundColor = "red"; // Change desk color or style as needed
-                alert("Desk 2 is in Room 2");
-            });
-
-            desks[2].addEventListener("click", () => {
-                // Associate desk 3 with room 3
-                desks[2].style.backgroundColor = "green"; // Change desk color or style as needed
-                alert("Desk 3 is in Room 3");
-            });
-        </script>
+        
         <!-- Rooms -->
         <div class="room" style=" border: 2px solid black;top: 250px; left: 50px; width: 150px; height: 150px;"></div>
         <div class="room" style=" border: 2px solid black;top: 250px; left: 250px; width: 150px; height: 150px;"></div>
