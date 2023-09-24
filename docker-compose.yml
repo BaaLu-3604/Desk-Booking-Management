@@ -1,0 +1,32 @@
+version: '3'
+services:
+    microservice1:
+        image: ui-microservice
+        build:
+            context: ./UI-Microservice # Path to the Dockerfile for microservice1
+        ports:
+            - "5001:5001" # Map container port to host port
+
+    microservice2:
+        build:
+            context: ./ # Path to the Dockerfile for microservice2
+        ports:
+            - "5002:5002" # Map container port to host port
+
+    microservice3:
+        build:
+            context: ./microservice3 # Path to the Dockerfile for microservice3
+        ports:
+            - "5003:5003" # Map container port to host port
+
+    microservice4:
+        build:
+            context: ./Data # Path to the Dockerfile for microservice4
+        ports:
+            - "5004:5004" # Map container port to host port
+
+    mongodb:
+        image: mongo:latest
+        ports:
+            - "27017:27017" # Map container port to host port
+

@@ -1,28 +1,64 @@
-from flask import Flask, render_template, request
-import requests,os
-
+import json
+from flask import Flask, jsonify, render_template, redirect, session, url_for
+import requests
+from authlib.integrations.flask_client import OAuth
+import os
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = os.urandom(24)  # Replace with a strong, random secret key
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    data = request.json
-    username = data['username']
-    password = data['password']
+# Initialize OAuth with Google configuration
+oauth = OAuth(app)
 
-    response = requests.post('http://localhost:5004/check_credentials', json={'username': username, 'password': password})
-    if response.status_code == 200:
+oauth.register(
+    name='google',
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+    client_id='364019091010-rj21o1gl6des7qi8k5991mbn6jkh09q4.apps.googleusercontent.com',  # Replace with your Google OAuth client ID
+    client_secret='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',  # Replace with your Google OAuth client secret
+    client_kwargs={
+        'scope': 'openid email profile'
+    }
+)
+
+@app.route('/authenticate')
+def authenticate():
+    redirect_uri = url_for('auth', _external=True)
+    return oauth.google.authorize_redirect(redirect_uri)
+
+@app.route('/auth')
+def auth():
+    
+    token = oauth.google.authorize_access_token()
+    userinfo_response = requests.get('https://openidconnect.googleapis.com/v1/userinfo', headers={'Authorization': f'Bearer {token["access_token"]}'})
+
+    if userinfo_response.status_code == 200:
+        userinfo = userinfo_response.json()
+        print(userinfo)
+        user = userinfo.get('email')
+        name = str(userinfo.get('name'))
+        picture_url = str(userinfo.get('picture'))
+
+        response = requests.post("http://127.0.0.1:5004/isexists",json=({"user" : user}))
         result = response.json()
-        print(result)
-        return result
+        print(response)
+        if response.status_code == 200:
+            if result['exists']:
+                role = str(result['role'])
+                username = str(result['user_data'])
+                # return render_template('l.html',error = result,data = userinfo,email = result['user_data'])
+                return render_template('dashboard.html', user= username, role= role)
+                # return jsonify({'auth' : True, 'role': role,'user': username})
+            else:
+                # return render_template('l.html',error = result,data = str(userinfo),email = result['user_data'])
+                return render_template('home.html',error= "cant login")
+            
+                # return jsonify({'auth' : False})
+        else:
+            # return jsonify({'auth' : False})
+            return render_template('home.html',error= "cant login")
+            # return render_template('l.html',error = result,data = str(userinfo),email = result['user_data'])
+
     else:
-        return "Error communicating with the database microservice"
-
-@app.route('/forget', methods=['GET', 'POST'])
-def forget_password():
-    return render_template('forget.html')
-
-
+        return jsonify({'auth' : False})
 
 if __name__ == '__main__':
-    app.run(debug=True,port=5002,host='0.0.0.0')
+    app.run(debug=True, port=5002, host='0.0.0.0')
