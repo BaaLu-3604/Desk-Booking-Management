@@ -1,13 +1,22 @@
-{% extends "layout.html" %} 
+{% extends 'layout.html' %}
 
-{% block title %}Dashboard{% endblock %} 
+{% block title %}Dashboard{% endblock %}
 
-{% block content %} 
-<div class="container">
-    <div style="margin: 80px 250px;">
-            <h2>Welcome ..!  {{ username }}</h2>
+{% block content %}
+{% if 'username' in session %}
+
+<div class="container col-7 p-4 rounded-3" style="color:rgb(255, 255, 255); background-color: rgba(158, 158, 151, 0.705);-webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px); margin-top: 6%;">
+        <div>
+            <h2>Welcome ..! {{ username }}</h2>
             <p>Username: {{ username }}</p>
             <p>Role: {{ role }}</p>
         </div>
 </div>
+
+{% else %}
+<div class="p-3 w-25 offset-5 my-5 rounded-3 fw-bold bg-danger text-white">
+    <p>Session Expired Please Login ..!</p>
+</div>
+{% endif %}
 {% endblock %}

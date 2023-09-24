@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block title %}User Management
+{% endblock %}
+
+{% block content %}
+{% if 'username' in session %}
+<div class="container-fluid col-8" style="margin-top: 6%">
+    <div class="row justify-content-end">
+        <div class="p-4 rounded-4" style="background-color: rgba(201, 197, 199, 0.705);
+            -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(2px);">
+            <form method="post" action="{{ url_for('user_management') }}">
+                <div class="row mt-2">
+                    <div class="col-md-4 mt-2">
+                        <input type="email" class="form-control" id="email" name="email"
+                            placeholder="Enter user's email" required />
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <select name="role" id="role" class="form-select">
+                            <option value="select">--Select Role--</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Team Member">Team Member</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mt-2 align-content-center">
+                        <select name="action" id="action" class="form-select">
+                            <option value="select">--Action--</option>
+                            <option value="add">Add user</option>
+                            <option value="remove">Remove user</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 mt-2">
+                        <input type="submit" class="btn fw-bold btn-primary" value="Submit" />
+                    </div>
+                </div>
+                <p class="text-center mt-3" style="color: tomato">{{ user_management_error }}</p>
+            </form>
+        </div>
+        <div class="container mt-3">
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Employee ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data %}
+                        <tr>
+                            <td>{{ item.field1 }}</td>
+                            <td>{{ item.field2 }}</td>
+                            <td>{{ item.field2 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="p-3 w-25 offset-5 my-5 rounded-3 fw-bold bg-danger text-white">
+    <p>Session Expired Please Login ..!</p>
+</div>
+{% endif %}
+{% endblock %}
