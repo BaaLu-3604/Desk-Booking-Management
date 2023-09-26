@@ -5,8 +5,7 @@
 {% block content %}
 {% if 'username' in session %}
 
-
-<div class="contain">
+<div class="contain" style= "background-image:url(./static/images/main2.jpg);">
     <div class="column">  
 
 <div class="container " style="margin-top: 20% ;">
@@ -14,12 +13,7 @@
         <div class="col-md-12">
             <div class="border p-3">
                 <h2 class="text-center mb-1">Book Desk</h2>
-                <form method="post">
-                    <div class="mb-2">
-                        <label for="email"  class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>     
-                    </div>
-
+                <form method="post">                  
                     <div class="mb-5">
                         <label for="Select date" class="form-label">Select date</label>
                         <div class="input-group date">
@@ -71,55 +65,54 @@
 </div>
 </div>
 
-    <div class="office">
+<div class="contain">  
+    <div class="office" style=" display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); grid-gap: 60px;">
         <!-- Rooms -->
-        <div class="room" style="top: 50px; left: 50px; width: 150px; height: 150px;"></div>
-        <div class="room" style="top: 50px; left: 250px; width: 150px; height: 150px;"></div>
-        <div class="room" style="top: 50px; left: 450px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 50px; left: 50px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 50px; left: 100px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 50px; left: 450px; width: 150px; height: 150px;"></div>
+
+        <!-- Desks -->
+        <div class="desk" style=" border: 2px solid black; top: 50px; left: 50px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 110px; left: 50px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 50px; left: 100px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 110px; left: 100px;"></div>
+
+        <div class="desk" style=" border: 2px solid black; top: 50px; left: 260px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 110px; left: 260px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 50px; left:310px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 110px; left: 310px;"></div>
+
+        <div class="desk" style=" border: 2px solid black; top: 50px; left: 470px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 110px; left: 470px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 50px; left:520px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 110px; left: 520px;"></div>
+
+
         
-
-        <!-- Desks -->
-
         <!-- Rooms -->
+        <div class="room" style=" border: 2px solid black;top: 250px; left: 50px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 250px; left: 250px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 250px; left: 450px; width: 150px; height: 150px;"></div>
        
-        <!-- Desks -->
+        <!-- Desks --> 
+        <div class="desk" style=" border: 2px solid black; top: 270px; left: 50px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 330px; left: 50px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 270px; left: 100px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 330px; left: 100px;"></div>
+
+        <div class="desk" style=" border: 2px solid black; top: 270px; left: 260px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 330px; left: 310px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 270px; left: 310px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 330px; left: 260px;"></div>
+
+        <div class="desk" style=" border: 2px solid black; top: 270px; left: 470px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 330px; left: 470px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 270px; left: 520px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 330px; left: 520px;"></div>
        
     </div>
-
-    <script>
-        // Function to show desk details and book the selected desk
-        function bookDesk(deskNumber) {
-            const deskStatusElement = document.getElementById("deskStatus");
-
-            // Check if the desk is already booked
-            if (deskStatusElement.textContent === `Desk ${deskNumber} Status: Booked`) {
-                deskStatusElement.textContent = `Desk ${deskNumber} is already booked.`;
-            } else {
-                deskStatusElement.textContent = `Desk ${deskNumber} Status: Booked`;
-            }
-        }
-
-        // Add click event listeners to desk elements
-        const desks = document.querySelectorAll(".desk");
-        desks.forEach((desk, index) => {
-            desk.addEventListener("click", () => {
-                const deskNumber = index + 1;
-                const deskDetailsElement = document.getElementById("deskDetails");
-                deskDetailsElement.textContent = `Desk ${deskNumber} For one person.`;
-
-                // Prompt user to confirm booking
-                if (confirm(`Do you want to book Desk ${deskNumber}?`)) {
-                    bookDesk(deskNumber);
-                }
-            });
-        });
-    </script>
-
-    <div id="deskStatus">
-        <!-- Desk status will be displayed here -->
-    </div>
-
-
+</div>
 
 <div class="contain">
     <div class="column">
@@ -127,7 +120,7 @@
             <div class="row justify-content-right">
                 <div class="col-md-12">
                     <div class="border p-3">
-                        <h2 class="text-center mb-4"> My Bookings</h2><br>
+                        <h2 class="text-center mb-1"> My Bookings</h2><br>
                         <h6 style="color: rgb(106, 43, 194);">Booked details</h6><br><br>
                         <h6><p>Building name<br><br>Date<br><br>Block and desk number</p><br></h6>
                         <div class="d-flex justify-content-center" style="margin-top: 15%;">
@@ -140,7 +133,6 @@
     </div>
 </div>
 
-
 {% else %}
 <div class="p-3 w-25 offset-5 my-5 rounded-3 fw-bold bg-danger text-white">
     <p>Session Expired Please Login ..!</p>
@@ -148,3 +140,4 @@
 {% endif %}
 
 {% endblock %}
+
