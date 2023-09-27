@@ -46,7 +46,7 @@ def authorize():
         userinfo = userinfo_response.json()
         print(userinfo)
         user = userinfo.get('email')
-
+        name = userinfo.get('given_name')
         response = requests.post("http://127.0.0.1:5004/isexists", json={"user": user})
         result = response.json()
         print(response)
@@ -56,6 +56,7 @@ def authorize():
                 username = str(result['user_data'])
                 session['username'] = username
                 session['role'] = role
+                session['name'] = name
                 return redirect(url_for('dashboard'))
             else:
                 return render_template('error.html', error="You did not register with this application")
@@ -68,7 +69,7 @@ def authorize():
 def dashboard():
     if not session:
         return redirect(url_for('home'))
-    return render_template('dashboard.html', username=session.get('username'), role=session.get('role'))
+    return render_template('dashboard.html', username=session.get('name'), role=session.get('role'))
 
 @app.route('/user_management', methods=['GET','POST'])
 def user_management():
@@ -106,8 +107,8 @@ def add_resource():
         block = request.form['selectBlock']
         desk = request.form['deskNo']
         resources = request.form['resources']
-
-        response = requests.post('http://localhost:5003/add_resource', json={'building': building, 'block': block, 'resources': resources, 'desk': desk})
+        data = {'building': building, 'block': block, 'resources': resources, 'desk': desk}
+        response = requests.post('http://localhost:5003/add_resource',json=data )
         if response.status_code == 200:
             message = "Resource added successfully"
             return render_template('add_resource.html', role=session.get('role'), error=message)
@@ -128,15 +129,16 @@ def logout():
 @app.route('/book_desk', methods=['GET','POST'])
 def book_desk():
     if request.method == 'POST':
-        email = request.form['email']
-        Building = request.form['Building']
-        Select_date = request.form['datepicker']        
-        response = requests.post('http://localhost:5003/book_desk', json=({'Building':Building,'Select_date':Select_date,'Email':email}))
+        Building = request.form['selectBuilding']
+        Block = request.form['selectBlock']
+        Date = request.form['datepicker']        
+        response = requests.post('http://localhost:5004/get_desks_status', json=({'Building':Building,'Block': Block,'Date': Date}))
         print(response.status_code)
-        if response.status_code == 201:
-            message = "Booked successfully"
-            return render_template('book_desk.html',role=session.get('role'),error= message,color= 'color:green;')
+        result = response.json()
+        if response.status_code == 200:
+            return render_template('book_desk.html', role=session.get('role'), error=response.text)
         else:
+
             error = "unsuccessful" 
             return render_template('book_desk.html',role=session.get('role'),error= error,color= 'color:red;')
     return render_template('book_desk.html',role=session.get('role'))
@@ -144,6 +146,7 @@ def book_desk():
 @app.route('/issue_report', methods=['GET','POST'])
 def issue_report():
     return render_template('book_desk.html',role=session.get('role'))
+
 
 
 if __name__ == '__main__':
