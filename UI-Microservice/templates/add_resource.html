@@ -64,9 +64,9 @@
     const selectBuilding = document.getElementById('selectBuilding');
     const selectBlock = document.getElementById('selectBlock');
 
-    const DeccanBlocks = ["DP-A", "DP-B", "DP-C", "DP-D"];
-    const SynergyBlocks = ["S-A", "S-B", "S-C"];
-    const KohinoorBlocks = ["K-A", "K-B", "K-C"];
+    const DeccanBlocks = ["DP A", "DP B", "DP C", "DP D"];
+    const SynergyBlocks = ["S A", "S B", "S C"];
+    const KohinoorBlocks = ["K A", "K B", "K C"];
 
     selectBuilding.addEventListener('change', function () {
         const selectedBuilding = selectBuilding.value;
@@ -83,7 +83,7 @@
 
         blocks.forEach(function (block) {
             const option = document.createElement('option');
-            option.value = block.toLowerCase();
+            option.value = block.toString();
             option.textContent = block;
             selectBlock.appendChild(option);
         });
