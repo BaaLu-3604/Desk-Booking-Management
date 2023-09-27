@@ -4,7 +4,7 @@ from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
 from flask_caching import Cache
 
-load_dotenv("/home/baalu/Desktop/Desk-Booking-Management/UI-Microservice/env.env")
+load_dotenv("C:/Users/Navya/Downloads/TCS_Project/Desk-Booking-Management/UI-Microservice/ui.env")
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
