@@ -1,3 +1,4 @@
+from datetime import datetime
 import random,os
 import string
 from flask import Flask, jsonify, request, session
@@ -10,7 +11,9 @@ app.secret_key = os.urandom(24)  # Replace with a strong, random secret key
 client = MongoClient('mongodb://localhost:27017/')
 db = client['login_db']
 users = db['users']
-resources = db['resources']
+buildings_collection = db["buildings"]
+blocks_collection = db['blocks']  # Access the existing 'blocks' collection
+desks_collection = db["desks"]
 users.create_index([('username', 1)], unique=True)  # Set username as a unique index
 
 @app.route('/isexists', methods=['POST'])
@@ -76,22 +79,108 @@ def remove_user():
         return jsonify({"message": "User not found"}),404
 
     
+
+def create_building(building_name):
+    # Check if a building with the same name already exists
+    building = buildings_collection.find_one({"name": building_name})
+    
+    if building:
+        return True  # Building with the same name already exists
+    else:
+        building_data = {
+            "name": building_name,
+            "blocks": []
+        }
+        buildings_collection.insert_one(building_data)
+        return True  # Building created successfully
+
+# Create Operation for Blocks within a Building
+def create_block(building_name, block_name):
+    building = buildings_collection.find_one({"name": building_name})
+    if building:
+        # Check if the block already exists within the building
+        block_exists = blocks_collection.find_one({"name": block_name, "building_id": building["_id"]})
+        if block_exists:
+            return True  # Block with the same name already exists
+        else:
+            block_data = {
+                "name": block_name,
+                "building_id": building["_id"],
+                "desks": []
+            }
+            blocks_collection.insert_one(block_data)
+            buildings_collection.update_one({"_id": building["_id"]}, {"$push": {"blocks": block_data}})
+            return True  # Block created successfully
+    else:
+        return False  # Building not found
+
+
+# Create Operation for Desks within a Block
+def create_desk(block_name, desk_data):
+    block = blocks_collection.find_one({"name": block_name})
+    if block:
+        desk_exists = desks_collection.find_one({"name": desk_data["name"], "block": block["_id"]})
+        if desk_exists:
+            return False  # Desk with the same name already exists in the block
+        else:
+            desk_data["block"] = block["_id"]
+            desk_data.get("resources", []) 
+            desk_data["availability"] = True  # Assuming desks are initially available
+            desk_data["occupied_by"] = ""
+            desk_data["date"] = datetime.now()
+            desk_id = desks_collection.insert_one(desk_data).inserted_id
+            blocks_collection.update_one({"_id": block["_id"]}, {"$push": {"desks": desk_id}})
+            return True
+    else:
+        return False  # Block not found
+
 @app.route('/add_resource', methods=['POST'])
 def add_resource():
-    data = request.json
-    building = data['building']
-    block = data['block']
-    desk = data['desk']
-    resource = data['resources']
-    data = {
-        'building': building,
-        'block': block,
-        'desk': desk,
-        'resources':resource
-    }
-    resources.insert_one(data)
-  
-    return jsonify({"message": "Resource added successfully"}), 201
+    data = request.get_json()
+    building_name = data['building']
+    block_name = data['block']
+    desk_name = data['desk']
+    resources = data['resources']
+    if create_building(building_name):
+        create_block(building_name, block_name)
+        if create_desk(block_name, {"name": desk_name,"resources": resources}):
+            return jsonify({"message": "Data added successfully!"})
+        else:
+            return jsonify({"error": f"Desk '{desk_name}' already exists in '{block_name}'!"})
+    else:
+        return jsonify({"error": f"Building '{building_name}' already exists!"})
+
+
+# Route to fetch desks and their status within a block
+@app.route('/get_desks_status', methods=['POST'])
+def fetch_desks_status():
+    data = request.get_json()
+    building_name = data['Building']
+    block_name = data['Block']
+    
+    # Check if the building exists in the database
+    building = buildings_collection.find_one({"name": building_name})
+    
+    if building:
+        # The building exists, now check the block
+        block = blocks_collection.find_one({"name": block_name})
+        
+        if block:
+            desks = desks_collection.find({"block": block["_id"]}, {"_id": 0, "name": 1, "availability": 1})
+            desks_data = list(desks)
+            return jsonify({"building_name": building_name, "block_name": block_name, "desks": desks_data})
+        else:
+            return jsonify({"error": f"No block found with name '{block_name}' in '{building_name}'."})
+    else:
+        return jsonify({"error": f"No building found with name '{building_name}'."})
+
+
+
+
+
+
+
+
 
 @app.route('/book_desk', methods=['POST'])
 def book_desk():
