@@ -20,22 +20,83 @@
                             <option value="Synergy Park">Synergy Park</option>
                             <option value="Kohinoor Park">Kohinoor Park</option>
                         </select>
-                    </div>
-                    <div class="col-md-3 mt-2">
-                        <label for="selectBlock" class="form-label  fw-bold">Block</label>
-                        <select required id="selectBlock" name="selectBlock" class="form-select mb-3">
-                            <option value="">--Select--</option>
-                            <option value="DP A">DP A</option>
-                            <option value="DP B">DP B</option>
-                            <option value="S A">S A</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4 mt-2">
-                        <label for="Select date" class="form-label">Select date</label>
-                        <input type="date" id="datepicker" name="datepicker" class="form-control">
-                    </div>
-                    <div class="col-md-1 d-grid align-content-center mt-4">
-                        <input type="submit" class="btn fw-bold btn-primary" value="Show desks" />
+
+                        </div>
+                    </div> 
+                    <p class="text-center mb-3" style="{{color}}">{{error}}</p>
+                    <div class="d-flex justify-content-center" style="margin-top: 15%">
+                        <input type="submit" class="btn fw-bold btn-primary" value="Show avialble desks">
+                    </div>                   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="contain">  
+    <div class="office" style=" display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); grid-gap: 60px;">
+        <!-- Rooms -->
+        <div class="room" style=" border: 2px solid black;top: 50px; left: 50px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 50px; left: 100px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 50px; left: 450px; width: 150px; height: 150px;"></div>
+
+        <!-- Desks -->
+        <div class="desk" style=" border: 2px solid black; top: 50px; left: 50px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 110px; left: 50px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 50px; left: 100px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 110px; left: 100px;"></div>
+
+        <div class="desk" style=" border: 2px solid black; top: 50px; left: 260px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 110px; left: 260px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 50px; left:310px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 110px; left: 310px;"></div>
+
+        <div class="desk" style=" border: 2px solid black; top: 50px; left: 470px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 110px; left: 470px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 50px; left:520px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 110px; left: 520px;"></div>
+
+
+        
+        <!-- Rooms -->
+        <div class="room" style=" border: 2px solid black;top: 250px; left: 50px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 250px; left: 250px; width: 150px; height: 150px;"></div>
+        <div class="room" style=" border: 2px solid black;top: 250px; left: 450px; width: 150px; height: 150px;"></div>
+       
+        <!-- Desks --> 
+        <div class="desk" style=" border: 2px solid black; top: 270px; left: 50px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 330px; left: 50px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 270px; left: 100px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 330px; left: 100px;"></div>
+
+        <div class="desk" style=" border: 2px solid black; top: 270px; left: 260px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 330px; left: 310px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 270px; left: 310px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 330px; left: 260px;"></div>
+
+        <div class="desk" style=" border: 2px solid black; top: 270px; left: 470px;"></div>
+        <div class="desk" style=" border: 2px solid black; top: 330px; left: 470px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 270px; left: 520px;"></div>
+        <div class="desk" style=" border: 2px solid black;top: 330px; left: 520px;"></div>
+       
+    </div>
+</div>
+
+<div class="contain">
+    <div class="column">
+        <div class="container" style="margin-top: 20% ;">
+            <div class="row justify-content-right">
+                <div class="col-md-12">
+                    <div class="border p-3">
+                        <h2 class="text-center mb-1"> My Bookings</h2><br>
+                        <h6 style="color: rgb(106, 43, 194);">Booked details</h6><br><br>
+                        <h6><p>Building name<br><br>Date<br><br>Block and desk number</p><br></h6>
+                        <div class="d-flex justify-content-center" style="margin-top: 15%;">
+                            <input type="submit" class="btn fw-bold btn-primary" value="Cancel">
+                        </div>
+
                     </div>
                 </div>
                 <p class="text-center mt-3" style="color: tomato">{{ error }}</p>

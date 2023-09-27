@@ -4,7 +4,7 @@ from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
 from flask_caching import Cache
 
-load_dotenv("/home/baalu/Desktop/Desk-Booking-Management/UI-Microservice/env.env")
+load_dotenv("C:/Users/Navya/Downloads/TCS_Project/Desk-Booking-Management/UI-Microservice/ui.env")
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -13,7 +13,6 @@ cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 oauth = OAuth(app)
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
-print(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)
 
 oauth.register(
     name='google',
@@ -139,9 +138,16 @@ def book_desk():
         if response.status_code == 200:
             return render_template('book_desk.html', role=session.get('role'), error=response.text)
         else:
-            error = "Unsuccessful: " + result.text # Display the error message from the JSON response
-            return render_template('book_desk.html', role=session.get('role'), error=error)
-    return render_template('book_desk.html', role=session.get('role'))
+
+            error = "unsuccessful" 
+            return render_template('book_desk.html',role=session.get('role'),error= error,color= 'color:red;')
+    return render_template('book_desk.html',role=session.get('role'))
+
+@app.route('/issue_report', methods=['GET','POST'])
+def issue_report():
+    return render_template('book_desk.html',role=session.get('role'))
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5005)
