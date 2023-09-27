@@ -25,8 +25,7 @@ def authenticate():
     return oauth.google.authorize_redirect(redirect_uri)
 
 @app.route('/auth')
-def auth():
-    
+def auth():   
     token = oauth.google.authorize_access_token()
     userinfo_response = requests.get('https://openidconnect.googleapis.com/v1/userinfo', headers={'Authorization': f'Bearer {token["access_token"]}'})
 

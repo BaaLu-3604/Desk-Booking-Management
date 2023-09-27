@@ -4,7 +4,8 @@ from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
 from flask_caching import Cache
 
-load_dotenv("/home/baalu/Desktop/Desk-Booking-Management/UI-Microservice/env.env")
+src=os.getcwd()
+load_dotenv(src+"/env.env")
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -33,6 +34,10 @@ def home():
 @app.route('/')
 def index():
     return render_template('home.html', role=session.get('role'))
+
+@app.route('/issue_report')
+def issue_report():
+    return render_template('issue_report.html', role=session.get('role'))
 
 @app.route('/authenticate')
 def authenticate():
