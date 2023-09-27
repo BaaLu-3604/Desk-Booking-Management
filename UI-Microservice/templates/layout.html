@@ -184,7 +184,7 @@
                                     <a class="nav-link" href="{{ url_for('add_resource') }}">Resource Management</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link " href="#">View Issues</a>
+                                    <a class="nav-link " href="{{ url_for('issue_report') }}">View Issues</a>
                                 </li>
                             {% endif %}
                             {% if role in ['Admin', 'Manager'] %}

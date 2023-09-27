@@ -13,7 +13,6 @@ cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 oauth = OAuth(app)
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
-print(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)
 
 oauth.register(
     name='google',
@@ -85,7 +84,6 @@ def user_management():
         if action == 'add':
             response = requests.post('http://localhost:5003/user_management', json={'email': email, 'role': role})
             if response.status_code == 200:
-                print(response.json())
                 return render_template('user_management.html', role=session.get('role'), user_management_error="User Added successfully")
             else:
                 return render_template('user_management.html', role=session.get('role'), user_management_error="User Already Exists")
@@ -141,6 +139,10 @@ def book_desk():
         else:
             error = "unsuccessful" 
             return render_template('book_desk.html',role=session.get('role'),error= error,color= 'color:red;')
+    return render_template('book_desk.html',role=session.get('role'))
+
+@app.route('/issue_report', methods=['GET','POST'])
+def issue_report():
     return render_template('book_desk.html',role=session.get('role'))
 
 
