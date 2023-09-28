@@ -35,9 +35,7 @@ def home():
 def index():
     return render_template('home.html', role=session.get('role'))
 
-@app.route('/issue_report')
-def issue_report():
-    return render_template('issue_report.html', role=session.get('role'))
+
 
 @app.route('/authenticate')
 def authenticate():
@@ -147,6 +145,26 @@ def book_desk():
             error = "Unsuccessful: " + result.text # Display the error message from the JSON response
             return render_template('book_desk.html', role=session.get('role'), error=error)
     return render_template('book_desk.html', role=session.get('role'))
+
+@app.route('/issue_report', methods=['GET','POST'])
+def issue_report():
+    if request.method == 'POST':
+        Building = request.form['selectBuilding']
+        Block = request.form['selectBlock']
+        Date = request.form['datepicker']
+        DeskNo = request.form['DeskNo']
+        Issue=request.form['Issue']
+        data = {'Building': Building, 'Block': Block, 'Date': Date, 'Desk': DeskNo, 'Issue': Issue}         
+        response = requests.post('http://localhost:5004/issue_report', json=data)
+        print(response.text)
+        result = response.json()
+        if response.status_code == 201:
+            message = "successfully added your Issue"
+            return render_template('issue_report.html', role=session.get('role'), error=message)
+        else:
+            error = "Unknown error"
+            return render_template('issue_report.html', role=session.get('role'), error=error)
+    return render_template('issue_report.html', role=session.get('role'))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5005)

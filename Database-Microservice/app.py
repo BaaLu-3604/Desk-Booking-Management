@@ -15,6 +15,8 @@ buildings_collection = db["buildings"]
 blocks_collection = db['blocks']  # Access the existing 'blocks' collection
 desks_collection = db["desks"]
 users.create_index([('username', 1)], unique=True)  # Set username as a unique index
+Issue_report = db['Issue_report']
+
 
 @app.route('/isexists', methods=['POST'])
 def isexists():
@@ -175,13 +177,6 @@ def fetch_desks_status():
         return jsonify({"error": f"No building found with name '{building_name}'."})
 
 
-
-
-
-
-
-
-
 @app.route('/book_desk', methods=['POST'])
 def book_desk():
     data = request.json
@@ -195,6 +190,26 @@ def book_desk():
     }
     resources.insert_one(resource)
     return jsonify({"message": "Booked successfully"}), 201 
+
+@app.route('/issue_report', methods=['POST'])
+def issue_report():
+    data = request.get_json()
+    Building = data['Building']
+    Block=data['Block']
+    Select_date = data['Date'] 
+    DeskNo=data['Desk'] 
+    Issue=data['Issue']
+
+    Issue = {
+        'email': session.get('username'),
+        'Building': Building,
+        'Block': Block,
+        'Select_date': Select_date,
+        'DeskNo':DeskNo,
+        'Issue': Issue,
+    }
+    Issue_report.insert_one(Issue)
+    return jsonify({"message": "successfully added your Issue"}),201
   
 if __name__ == '__main__':
     app.run(debug=True,port=5004,host='0.0.0.0')
