@@ -189,7 +189,6 @@ def issue_report():
     }
     Issue_report.insert_one(Issue)
     return jsonify({"message": "successfully added your Issue"}),201
-<<<<<<< HEAD
 
 @app.route('/view_issues', methods=['POST'])
 def view_issues():
@@ -197,9 +196,7 @@ def view_issues():
     print ('issues_reported')
     return jsonify({"issues_reported": issues_reported })
 
-=======
   
->>>>>>> a385c5081c43009b16e6b960ba83e89eda7443da
 
 if __name__ == '__main__':
     app.run(debug=True,port=5004,host='0.0.0.0')
