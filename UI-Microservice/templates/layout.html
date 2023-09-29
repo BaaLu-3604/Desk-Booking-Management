@@ -16,12 +16,14 @@
         body::-webkit-scrollbar {
             display: none;
         }
-        body{
-            background-image: linear-gradient(rgba(0,0,0,1),rgba(0,0,0,0.1)),url("./static/images/back.jpg");
+
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1)), url("./static/images/back.jpg");
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
         }
+
         .navbar-nav .nav-link {
             text-decoration: none;
             color: #333;
@@ -50,13 +52,12 @@
         .navbar .navbar-brand {
             color: #ffffff;
         }
-
     </style>
 </head>
 
 <body>
     <header class="container-fluid navbar navbar-expand-md navbar-dark bg-dark sticky-top">
-        <div class="col-9 container-fluid">
+        <div class="col-8 container-fluid">
             <label class="navbar-brand fw-bold fs-3" href="#">Smart Desk</label>
             <button class="navbar-toggler justify-content-end" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -94,47 +95,47 @@
     </header>
     {% if 'username' in session %}
     <div class="container-fluid navbar navbar-expand-md navbar-dark bg-light position-fixed z-1" style="height: 42px;">
-                <div class="container col-8">
-                    <button class="navbar-toggler z-1 bg-light" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                        ariasaibalajikokkiligadda360@gmail.com-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('dashboard')}}">Dashboard</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('book_desk')}}">My Bookings</a>                          
-                            </li>
-                            {% if role in ['Team Member', 'Manager'] %}
-                                <li class="nav-item">
-                                    <a class="nav-link " href="{{ url_for('issue_report')}}">Issue Report</a>
-                                </li>
-                            {% endif %}
-                            {% if role == 'Admin' %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url_for('user_management') }}">User Management</a>
-                                </li>
+        <div class="container col-8">
+            <button class="navbar-toggler justify-content-end" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('dashboard')}}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('book_desk')}}">My Bookings</a>
+                    </li>
+                    {% if role in ['Team Member', 'Manager'] %}
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">Issue Report</a>
+                    </li>
+                    {% endif %}
+                    {% if role == 'Admin' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('user_management') }}">User Management</a>
+                    </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url_for('add_resource') }}">Resource Management</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link " href="#">View Issues</a>
-                                </li>
-                            {% endif %}
-                            {% if role in ['Admin', 'Manager'] %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Generate Reports</a>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('add_resource') }}">Resource Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">View Issues</a>
+                    </li>
+                    {% endif %}
+                    {% if role in ['Admin', 'Manager'] %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Generate Reports</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
+        </nav>
+    </div>
     </div>
     {%endif %}
 
@@ -144,7 +145,7 @@
 
     <footer>
         <div class="nav fixed-bottom text-bg-dark justify-content-center m-0" style="padding: 2px;">
-            <p>&copy; 2023 www.smartdesk.com.  All rights reserved.</p>
+            <p>&copy; 2023 www.smartdesk.com. All rights reserved.</p>
         </div>
     </footer>
 </body>

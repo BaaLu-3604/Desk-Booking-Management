@@ -51,20 +51,16 @@ def user_management():
 
     user = {
         'username': email,
-        'emp-id': emp_id,
-        'role': role,
+        'empid': emp_id,
+        'role': role
     }
     users.insert_one(user)
     
     return jsonify({"message": "User added successfully"}), 201
 
-@app.route('/user_list', methods=['POST'])
+@app.route('/user_list', methods=['GET','POST'])
 def user_list():
-    users_data = list(users.find({}))
-
-    for user in users_data:
-        user['_id'] = str(user['_id'])
-
+    users_data = list(users.find({}, {'_id': 0, 'username': 1,'empid':1, 'role': 1}))
     return jsonify(users_data)
     
 @app.route('/remove_user', methods=['POST'])
@@ -80,8 +76,6 @@ def remove_user():
         return jsonify({"message": "User Removed successfully"}),201
     else:
         return jsonify({"message": "User not found"}),404
-
-    
 
 def create_building(building_name):
     # Check if a building with the same name already exists
@@ -153,7 +147,6 @@ def add_resource():
     else:
         return jsonify({"error": f"Building '{building_name}' already exists!"})
 
-
 # Route to fetch desks and their status within a block
 @app.route('/get_desks_status', methods=['POST'])
 def fetch_desks_status():
@@ -177,21 +170,6 @@ def fetch_desks_status():
     else:
         return jsonify({"error": f"No building found with name '{building_name}'."})
 
-
-@app.route('/book_desk', methods=['POST'])
-def book_desk():
-    data = request.json
-    email=data['Email']
-    Building = data['Building']
-    Select_date = data['Select_date']  
-    resource = {
-        'Occupied by': email,
-        'Building': Building,
-        'Select_date': Select_date,
-    }
-    resources.insert_one(resource)
-    return jsonify({"message": "Booked successfully"}), 201 
-
 @app.route('/issue_report', methods=['POST'])
 def issue_report():
     data = request.get_json()
@@ -211,6 +189,7 @@ def issue_report():
     }
     Issue_report.insert_one(Issue)
     return jsonify({"message": "successfully added your Issue"}),201
+<<<<<<< HEAD
 
 @app.route('/view_issues', methods=['POST'])
 def view_issues():
@@ -218,6 +197,9 @@ def view_issues():
     print ('issues_reported')
     return jsonify({"issues_reported": issues_reported })
 
+=======
+  
+>>>>>>> a385c5081c43009b16e6b960ba83e89eda7443da
 
 if __name__ == '__main__':
     app.run(debug=True,port=5004,host='0.0.0.0')
