@@ -23,7 +23,7 @@ Issue_report = db['Issue_report']
 def isexists():
     data = request.json
     user_data = users.find_one({'$or': [{'username': data['user']}, {'emp-id': data['user']}]})
-    
+
     if user_data:
         username = str(user_data['username'])
         role = str(user_data.get('role'))
