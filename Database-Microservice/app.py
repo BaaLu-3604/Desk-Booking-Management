@@ -22,7 +22,7 @@ Issue_report = db['Issue_report']
 def isexists():
     data = request.json
     user_data = users.find_one({'$or': [{'username': data['user']}, {'emp-id': data['user']}]})
-    
+
     if user_data:
         username = str(user_data['username'])
         role = str(user_data.get('role'))
@@ -30,26 +30,9 @@ def isexists():
         return jsonify({'exists': True, 'role': role, 'user_data': username})
     return jsonify({'exists': False})
 
-<<<<<<< HEAD
-    if user:
-        hashed_password = user['password']
-        # if bcrypt.checkpw(password.encode('utf-8'), hashed_password) and password == user['emp-id']:
-        #     # Redirect the user to the reset password page
-        #     return jsonify({'reset_password_required': True})
-        # Regular login
-
-        if bcrypt.checkpw(password.encode('utf-8'), hashed_password):
-            role = user.get('role', None) 
-            if role:
-                return jsonify({'authenticated': True, 'role': role})
-    return jsonify({'authenticated': False})
-
-@app.route('/add_user', methods=['POST'])
-def add_user():
-=======
 @app.route('/user_management', methods=['POST'])
 def user_management():
->>>>>>> 765cb9d69ef87b2ecec771b4429b0a7221205821
+
     data = request.json
     email = data['email']
     role = data['role']
