@@ -1,2 +1,12 @@
+<<<<<<< HEAD
 __pycache__/
 .vscode/
+=======
+config.py
+Login-Microservice/__pycache__
+Login-Microservice/
+env.env
+UI-Microservice/UIenv
+queries.txt
+/API-Gateway
+>>>>>>> 765cb9d69ef87b2ecec771b4429b0a7221205821
