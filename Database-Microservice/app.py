@@ -1,9 +1,10 @@
 from datetime import datetime
 import random,os
 import string
-from flask import Flask, jsonify, request, session
+from flask import Flask, jsonify, request, session, render_template,redirect, url_for
 from pymongo import MongoClient
 from bson import ObjectId 
+
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Replace with a strong, random secret key
@@ -210,6 +211,13 @@ def issue_report():
     }
     Issue_report.insert_one(Issue)
     return jsonify({"message": "successfully added your Issue"}),201
-  
+
+@app.route('/view_issues', methods=['POST'])
+def view_issues():
+    issues_reported = list(Issue_report.find({}))
+    print ('issues_reported')
+    return jsonify({"issues_reported": issues_reported })
+
+
 if __name__ == '__main__':
     app.run(debug=True,port=5004,host='0.0.0.0')

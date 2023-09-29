@@ -166,5 +166,13 @@ def issue_report():
             return render_template('issue_report.html', role=session.get('role'), error=error)
     return render_template('issue_report.html', role=session.get('role'))
 
+app.route('/view_issues', methods=['GET','POST'])
+def view_issues():
+    response = requests.get('http://localhost:5004/view_issues')
+    result =response.json()
+    if response.status_code==200:
+        return render_template('view_issues.html', username=session.get('name'), role=session.get('role'),issues=response.text)
+    return render_template('view_issues.html', username=session.get('name'), role=session.get('role'))
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5005)
