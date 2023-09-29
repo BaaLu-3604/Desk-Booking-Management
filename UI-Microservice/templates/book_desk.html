@@ -13,9 +13,9 @@
             <form method="post" action="">
                 <div class="row mt-2">
                     <div class="col-md-3 mt-2">
-                        <label for="selectBuilding" class="form-label  opacity-100 fw-bold">Building:</label>
+                        <label for="selectBuilding" class="form-label  opacity-100 fw-bold">Building</label>
                         <select required id="selectBuilding" name="selectBuilding" class="form-select mb-3">
-                            <option value="select">--Select--</option>
+                            <option value="select">--Select Building--</option>
                             <option value="Deccan Park">Deccan Park</option>
                             <option value="Synergy Park">Synergy Park</option>
                             <option value="Kohinoor Park">Kohinoor Park</option>
@@ -24,7 +24,7 @@
                     <div class="col-md-3 mt-2">
                         <label for="selectBlock" class="form-label  fw-bold">Block</label>
                         <select required id="selectBlock" name="selectBlock" class="form-select mb-3">
-                            <option value="">--Select--</option>
+                            <option value="">--Select Block--</option>
                             <option value="DP A">DP A</option>
                             <option value="DP B">DP B</option>
                             <option value="S A">S A</option>
@@ -41,19 +41,19 @@
                 <p class="text-center mt-3" style="color: tomato">{{ error }}</p>
             </form>
         </div>
-        <div class="container rounded-2 bg-light-subtle border w-auto"
-            style="margin-top: 2%; height: 500px;">
-            <svg width="100%" height="100%" viewBox="0 0 900 250" xmlns="http://www.w3.org/2000/svg">
+        <div class="container rounded-2 bg-light-subtle border"
+            style="margin-top: 2%;">
+            <svg width="100%" height="100%"  viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
                 <!-- Meeting Room 1 -->
                 <rect x="50" y="40" width="250" height="150" fill="white" stroke="black" stroke-width="1" />
-                <line x1="52" y1="70" x2="52" y2="160" style="stroke:rgb(81, 24, 24);stroke-width:5;" />
+                <line x1="52" y1="70" x2="52" y2="160" stroke-linecap="round" style="stroke:rgb(81, 24, 24);stroke-width:5;" />
                 <rect x="102" y="90" rx="10" ry="10" width="150" height="50" stroke="black" stroke-width="2" />
                 <text x="115" y="118" fill="white" style="font-weight: bold;">Meeting Room</text>
 
                 <!-- Desks in Meeting Room 1 (Two in one line) -->
                 <foreignObject x="70" y="103" width="100%" height="250">
                     <i class='fas fa-chalkboard'
-                        style='font-size:24px; width:"100%"; height:"100%"; font-size:24px;color:rgb(0, 0, 0); transform: rotate(-90deg);'></i>
+                        style='font-size:24px; color:rgb(0, 0, 0); transform: rotate(-90deg);'></i>
                 </foreignObject>
                 <foreignObject x="110" y="60" width="100%" height="24">
                     <a style="cursor: pointer;"><i class='fas fa-chalkboard'
@@ -70,8 +70,8 @@
                 </foreignObject>
 
                 <!-- Cabin 1 -->
-                <line x1="432" y1="60" x2="432" y2="180" style="stroke:rgb(81, 24, 24);stroke-width:5;" />
-                <line x1="352" y1="120" x2="512" y2="120" style="stroke:rgb(81, 24, 24);stroke-width:5;" />
+                <line x1="432" y1="60" x2="432" y2="180" stroke-linecap="round" style="stroke:rgb(81, 24, 24);stroke-width:5;" />
+                <line x1="352" y1="120" x2="512" y2="120" stroke-linecap="round" style="stroke:rgb(81, 24, 24);stroke-width:5;" />
                 <foreignObject x="380" y="80" width="100%" height="24">
                     <a style="cursor: pointer;"><i class='fas fa-chalkboard'
                             style='font-size:24px;color:rgb(0, 0, 0)'></i></a>
@@ -117,24 +117,66 @@
                 </foreignObject>
 
                 <!-- Cabin 2 -->
-                <line x1="332" y1="360" x2="432" y2="380" style="stroke:rgb(81, 24, 24);stroke-width:5;" />
-                <line x1="352" y1="120" x2="512" y2="120" style="stroke:rgb(81, 24, 24);stroke-width:5;" />
-                <foreignObject x="380" y="80" width="100%" height="24">
+                <line x1="90" y1="300" x2="250" y2="300" stroke-linecap="round" style="stroke:rgb(81, 24, 24);stroke-width:5;" />
+                <line x1="170" y1="240" x2="170" y2="360" stroke-linecap="round" style="stroke:rgb(81, 24, 24);stroke-width:5;" />
+                <foreignObject x="120" y="260" width="100%" height="24">
                     <a style="cursor: pointer;"><i class='fas fa-chalkboard'
                             style='font-size:24px;color:rgb(0, 0, 0)'></i></a>
                 </foreignObject>
-                <foreignObject x="380" y="145" width="100%" height="24">
+                <foreignObject x="190" y="260" width="100%" height="24">
                     <a style="cursor: pointer;"><i class='fas fa-chalkboard'
                             style='font-size:24px;color:rgb(0, 0, 0)'></i></a>
                 </foreignObject>
-                <foreignObject x="450" y="80" width="100%" height="24">
+                <foreignObject x="120" y="320" width="100%" height="24">
                     <a style="cursor: pointer;"><i class='fas fa-chalkboard'
                             style='font-size:24px;color:rgb(0, 0, 0)'></i></a>
                 </foreignObject>
-                <foreignObject x="450" y="145" width="100%" height="24">
+                <foreignObject x="190" y="320" width="100%" height="24">
                     <a style="cursor: pointer;"><i class='fas fa-chalkboard'
                             style='font-size:24px;color:rgb(0, 0, 0)'></i></a>
                 </foreignObject>
+
+                <!-- Cabin 3 -->
+                <line x1="432" y1="240" x2="432" y2="360" stroke-linecap="round"  style="stroke:rgb(163, 155, 155);stroke-width:5;" />
+                <line x1="360" y1="300" x2="500" y2="300" stroke-linecap="round" style="stroke:rgb(163, 155, 155);stroke-width:5;" />
+                <foreignObject x="380" y="260" width="100%" height="24">
+                    <a style="cursor: pointer;"><i class='fas fa-chalkboard'
+                            style='font-size:24px;color:rgb(0, 0, 0)'></i></a>
+                </foreignObject>
+                <foreignObject x="450" y="260" width="100%" height="24">
+                    <a style="cursor: pointer;"><i class='fas fa-chalkboard'
+                            style='font-size:24px;color:rgb(0, 0, 0)'></i></a>
+                </foreignObject>
+                <foreignObject x="380" y="320" width="100%" height="24">
+                    <a style="cursor: pointer;"><i class='fas fa-chalkboard'
+                            style='font-size:24px;color:rgb(0, 0, 0)'></i></a>
+                </foreignObject>
+                <foreignObject x="450" y="320" width="100%" height="24">
+                    <a style="cursor: pointer;"><i class='fas fa-chalkboard'
+                            style='font-size:24px;color:rgb(0, 0, 0)'></i></a>
+                </foreignObject>
+
+                <!-- Cabin 4 -->
+                <line x1="680" y1="240" x2="680" y2="360" stroke-linecap="round"  style="stroke:rgb(163, 155, 155);stroke-width:5;" />
+                <line x1="600" y1="300" x2="750" y2="300" stroke-linecap="round" style="stroke:rgb(163, 155, 155);stroke-width:5;" />
+                <foreignObject x="625" y="260" width="100%" height="24">
+                    <a style="cursor: pointer;"><i class='fas fa-chalkboard'
+                            style='font-size:24px;color:rgb(0, 0, 0)'></i></a>
+                </foreignObject>
+                <foreignObject x="700" y="260" width="100%" height="24">
+                    <a style="cursor: pointer;"><i class='fas fa-chalkboard'
+                            style='font-size:24px;color:rgb(0, 0, 0)'></i></a>
+                </foreignObject>
+                <foreignObject x="625" y="320" width="100%" height="24">
+                    <a style="cursor: pointer;"><i class='fas fa-chalkboard'
+                            style='font-size:24px;color:rgb(0, 0, 0)'></i></a>
+                </foreignObject>
+                <foreignObject x="700" y="320" width="100%" height="24">
+                    <a style="cursor: pointer;"><i class='fas fa-chalkboard'
+                            style='font-size:24px;color:rgb(0, 0, 0)'></i></a>
+                </foreignObject>
+
+               
             </svg>
         </div>
         <p>

@@ -4,7 +4,8 @@ from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
 from flask_caching import Cache
 
-load_dotenv("/home/baalu/Desktop/Desk-Booking-Management/UI-Microservice/env.env")
+src = os.getcwd()
+load_dotenv(src+"/env.env")
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -13,7 +14,7 @@ cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 oauth = OAuth(app)
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
-print(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)
+# print(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)
 
 oauth.register(
     name='google',
@@ -72,12 +73,15 @@ def dashboard():
         return redirect(url_for('home'))
     return render_template('dashboard.html', username=session.get('name'), role=session.get('role'))
 
-@app.route('/user_management', methods=['GET','POST'])
+@app.route('/user_management', methods=['GET', 'POST'])
 def user_management():
     if session and session.get('role') != 'Admin':
         message = "You do not have permission to Manage Users!"
         return render_template('error.html', role=session.get('role'), error=message)
-    
+
+    response = requests.post('http://localhost:5004/user_list')
+    users_data = response.json()
+
     if request.method == 'POST':
         email = request.form['email']
         role = request.form['role']
@@ -86,17 +90,18 @@ def user_management():
         if action == 'add':
             response = requests.post('http://localhost:5003/user_management', json={'email': email, 'role': role})
             if response.status_code == 200:
-                return render_template('user_management.html', role=session.get('role'), user_management_error="User Added successfully")
+                user_management_error = "User Added successfully"
             else:
-                return render_template('user_management.html', role=session.get('role'), user_management_error="User Already Exists")
-        if action == 'remove':
+                user_management_error = "User Already Exists"
+        elif action == 'remove':
             response = requests.post('http://localhost:5003/remove_user', json={'email': email, 'role': role})
-            print(response.status_code)
             if response.status_code == 200:
-                return render_template('user_management.html', role=session.get('role'), user_management_error="User removed successfully")
+                user_management_error = "User removed successfully"
             else:
-                return render_template('user_management.html', role=session.get('role'), user_management_error="No User Exists")
-    return render_template('user_management.html', role=session.get('role'))
+                user_management_error = "No User Exists"
+                return render_template('user_management.html', role=session.get('role'),  user_management_error=user_management_error)
+    return render_template('user_management.html', role=session.get('role'),users_data= users_data)
+
 
 @app.route('/add_resource', methods=['GET','POST'])
 def add_resource():
