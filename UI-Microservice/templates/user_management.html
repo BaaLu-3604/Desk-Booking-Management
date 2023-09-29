@@ -42,18 +42,17 @@
                 <table class="table table-dark table-hover">
                     <thead>
                         <tr>
-                            <th>Name</th>
                             <th>Email</th>
+                            <th>Emloyee ID</th>
                             <th>Role</th>
-                            <th>Employee ID</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for item in data %}
+                        {% for user in users_data %}
                         <tr>
-                            <td>{{ item.field1 }}</td>
-                            <td>{{ item.field2 }}</td>
-                            <td>{{ item.field2 }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.empid }}</td>
+                            <td>{{ user.role }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
