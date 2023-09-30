@@ -82,9 +82,7 @@ def user_management():
         message = "You do not have permission to Manage Users!"
         return render_template('error.html', role=session.get('role'), error=message)
 
-    response = requests.post('http://localhost:5004/user_list')
-    users_data = response.json()
-
+   
     if request.method == 'POST':
         email = request.form['email']
         role = request.form['role']
@@ -103,6 +101,10 @@ def user_management():
             else:
                 user_management_error = "No User Exists"
                 return render_template('user_management.html', role=session.get('role'),  user_management_error=user_management_error)
+    
+    response = requests.post('http://localhost:5004/user_list')
+    users_data = response.json()
+
     return render_template('user_management.html', role=session.get('role'),users_data= users_data)
 
 
