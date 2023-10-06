@@ -3,12 +3,13 @@ from flask import Flask, jsonify, render_template, redirect, request, session, u
 from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
 from flask_caching import Cache
-
+from flask_cors import CORS 
 
 src = os.getcwd()
 load_dotenv(src+"/env.env")
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = os.urandom(24)
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
@@ -35,8 +36,6 @@ def home():
 @app.route('/')
 def index():
     return render_template('home.html', role=session.get('role'))
-
-
 
 @app.route('/authenticate')
 def authenticate():
