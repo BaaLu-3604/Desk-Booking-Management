@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 
-{% block title %}Add Resource{% endblock %}
+{% block title %}View Issues{% endblock %}
 
 {% block content %}
 {% if 'username' in session %}
@@ -15,26 +15,7 @@
                     <div class="col-md-3 mt-2">
                         <div id="data-container">
                             Data will be displayed here.
-                            <script>
-                                // Replace 'http://example.com' with the actual URL of your microservice
-                                const apiUrl = 'http://example.com/Issue_report';
-                            
-                                fetch(apiUrl)
-                                    .then(response => {
-                                        if (!response.ok) {
-                                            throw new Error('Network response was not ok');
-                                        }
-                                        return response.json();
-                                    })
-                                    .then(data => {
-                                        // Access the data and display it in the HTML element
-                                        const dataContainer = document.getElementById('data-container');
-                                        dataContainer.textContent = `Data from external file: ${data.message}`;
-                                    })
-                                    .catch(error => {
-                                        console.error('Error fetching data:', error);
-                                    });
-                            </script>
+                            {{Issues}}
                         </div>
                     </div>
                 </div>
