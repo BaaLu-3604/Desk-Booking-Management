@@ -1,9 +1,10 @@
 from datetime import datetime
 import random,os
 import string
-from flask import Flask, jsonify, request, session
+from flask import Flask, jsonify, request, session, render_template,redirect, url_for
 from pymongo import MongoClient
 from flask_cors import CORS 
+
 
 app = Flask(__name__)
 CORS(app)
@@ -198,9 +199,6 @@ def get_bb_data():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
-
-
 @app.route('/issue_report', methods=['POST'])
 def issue_report():
     data = request.get_json()
@@ -220,6 +218,13 @@ def issue_report():
     }
     Issue_report.insert_one(Issue)
     return jsonify({"message": "successfully added your Issue"}),201
+
+@app.route('/view_issues', methods=['POST'])
+def view_issues():
+    issues_reported = list(Issue_report.find({}))
+    print ('issues_reported')
+    return jsonify({"issues_reported": issues_reported })
+
   
 @app.route('/view_issues', methods=['GET','POST'])
 def view_issues():

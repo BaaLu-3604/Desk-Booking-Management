@@ -11,23 +11,61 @@
                 backdrop-filter: blur(6px);">
             <form class="" method="post">
                 <h2 class="text-center mt-3 mb-4">Add Resource</h2>
-                <div class="">
-                    <label for="selectBuilding" class="form-label  opacity-100 fw-bold">Building:</label>
-                    <select required id="selectBuilding" name="selectBuilding" class="form-select mb-3">
-                        <option value="select">--Select--</option>
-                        <option value="Deccan Park">Deccan Park</option>
-                        <option value="Synergy Park">Synergy Park</option>
-                        <option value="Kohinoor Park">Kohinoor Park</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="selectBlock" class="form-label  fw-bold">Block</label>
-                    <select required id="selectBlock" name="selectBlock" class="form-select mb-3">
-                        <option value="">--Select--</option>
-                        <option id="addBlock">Add New Block</option>
-                    </select>
-                </div>
-
+                    <div class="mb-1">
+                        <label for="selectBuilding" class="form-label  opacity-100 fw-bold">Building</label>
+                        <select required id="selectBuilding" name="selectBuilding" class="form-select mb-3">
+                            <option value="select">--Select Building--</option>
+                            <option value="Deccan Park">Deccan Park</option>
+                            <option value="Synergy Park">Synergy Park</option>
+                            <option value="Kohinoor Park">Kohinoor Park</option>
+                        </select>
+                    </div>
+                    <div class="mb-1">
+                        <label for="selectBlock" class="form-label  fw-bold">Block</label>
+                        <select required id="selectBlock" name="selectBlock" class="form-select mb-3">
+                            <option value="--Select Block--">--Select Block--</option>
+                            
+                        </select>
+                    </div>
+                    <script>
+                        // Get references to the select elements
+                        const selectBuilding = document.getElementById('selectBuilding');
+                        const selectBlock = document.getElementById('selectBlock');
+                        
+                        // Define BLOCK options for BUILDINGS
+                        const DeccanBlocks = ["DP A", "DP B", "DP C", "DP D"];
+                        const SynergyBlocks = ["SP A", "SP B", "SP C"];
+                        const KohinoorBlocks = ["KP A", "KP B", "KP C"];// Add the BLOCKS for BUILDINGS
+                        
+                        // Function to BLOCKS select based on the selected BUILDINGS
+                        function Blocks() {
+                            const selectedBuilding = selectBuilding.value;
+                            selectBlock.innerHTML = ''; // Clear the current city options
+                        
+                            let BlocksSelection;
+                            if (selectedBuilding === 'Deccan Park') {
+                                BlocksSelection = DeccanBlocks;
+                            } else if (selectedBuilding === 'Synergy Park') {
+                                BlocksSelection = SynergyBlocks;
+                            } else if (selectedBuilding === 'Kohinoor Park') { // Handle the third state
+                                BlocksSelection = KohinoorBlocks;
+                            }
+                        
+                            // Add the new block options
+                            BlocksSelection.forEach(block => {
+                                const option = document.createElement('option');
+                                option.value = block;
+                                option.textContent = block;
+                                selectBlock.appendChild(option);
+                            });
+                        } 
+                        // Add an event listener to the state select element
+                        selectBuilding.addEventListener('change', Blocks);
+                        
+                        // Initially populate the city select with default options
+                        Blocks();
+                    </script>
+                    
                 <div class=" mb-1">
                     <label for="deskNo" class="form-label fw-bold">Desk No</label>
                     <select required id="deskNo" name="deskNo" class="form-select mb-3">
@@ -59,41 +97,6 @@
         </form>
     </div>
 </div>
-
-<script>
-    const selectBuilding = document.getElementById('selectBuilding');
-    const selectBlock = document.getElementById('selectBlock');
-
-    const DeccanBlocks = ["DP A", "DP B", "DP C", "DP D"];
-    const SynergyBlocks = ["S A", "S B", "S C"];
-    const KohinoorBlocks = ["K A", "K B", "K C"];
-
-    selectBuilding.addEventListener('change', function () {
-        const selectedBuilding = selectBuilding.value;
-        const blocks =
-            selectedBuilding === 'Deccan Park'
-                ? DeccanBlocks
-                : selectedBuilding === 'Synergy Park'
-                    ? SynergyBlocks
-                    : selectedBuilding === 'Kohinoor Park'
-                        ? KohinoorBlocks
-                        : [];
-
-        selectBlock.innerHTML = '<option value="">--Select--</option>';
-
-        blocks.forEach(function (block) {
-            const option = document.createElement('option');
-            option.value = block.toString();
-            option.textContent = block;
-            selectBlock.appendChild(option);
-        });
-
-        const addNewBlockOption = document.createElement('option');
-        addNewBlockOption.value = 'addNewBlock';
-        addNewBlockOption.textContent = 'Add New Block';
-        selectBlock.appendChild(addNewBlockOption);
-    });
-</script>
 {% else %}
 <div class="p-3 w-25 offset-5 my-5 rounded-3 fw-bold bg-danger text-white">
     <p>Session Expired Please Login ..!</p>

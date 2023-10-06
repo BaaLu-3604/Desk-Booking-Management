@@ -27,6 +27,7 @@
 
                     <div class="col-md-1 d-grid align-content-center mt-4">
                         <input type="button" id="showDesksButton" class="btn fw-bold btn-primary" value="Show desks" />
+                          
                     </div>
                 </div>
                 <p class="text-center mt-3" style="color: tomato">{{ error }}</p>
@@ -44,7 +45,7 @@
             // Clear existing options
             selectBuilding.innerHTML = '<option value="select">--Select Building--</option>';
             selectBlock.innerHTML = '<option value="">--Select Block--</option>';
-
+        
             // Populate select dropdown for buildings
             for (const building in data) {
                 if (data.hasOwnProperty(building)) {
@@ -66,6 +67,7 @@
                     });
                 }
             }
+                
 
             // Initially update the blocks dropdown
             updateBlocksDropdown();
@@ -75,6 +77,7 @@
             showDesksButton.addEventListener('click', function () {
                 // Add your code to handle the button click event
             });
+   
 
             // Add an event listener to the selectBuilding dropdown to update the blocks dropdown
             selectBuilding.addEventListener('change', updateBlocksDropdown);

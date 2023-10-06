@@ -7,15 +7,15 @@
 
 <div class="container-fluid col-9" style="margin-top: 6%">
     <div class="row justify-content-between">
-        <div class="col-11 p-3 rounded-4" style="height: fit-content; background-color: rgba(172, 159, 178, 0.705);
-                    -webkit-backdrop-filter: blur(4px);
-                    backdrop-filter: blur(2px);">
+        <div class="col-11 p-3 rounded-4" style="height: fit-content; background-color: rgba(172, 159, 178, 0.705);-webkit-backdrop-filter: blur(4px);backdrop-filter: blur(2px);">
             <form method="post" action="">
                 <div class="row mt-2">
                     <div class="col-md-3 mt-2">
                         <div id="data-container">
-                            Data will be displayed here.
-                            {{Issues}}
+                              <h1>Issues Reported</h1>
+                            <ul>
+                                    <li>{{ issues }}</li>
+                            </ul>
                         </div>
                     </div>
                 </div>

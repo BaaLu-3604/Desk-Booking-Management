@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from flask_caching import Cache
 from flask_cors import CORS 
 
-
 src = os.getcwd()
 load_dotenv(src+"/env.env")
 
@@ -82,9 +81,7 @@ def user_management():
         message = "You do not have permission to Manage Users!"
         return render_template('error.html', role=session.get('role'), error=message)
 
-    response = requests.post('http://localhost:5004/user_list')
-    users_data = response.json()
-
+   
     if request.method == 'POST':
         email = request.form['email']
         role = request.form['role']
@@ -103,6 +100,10 @@ def user_management():
             else:
                 user_management_error = "No User Exists"
                 return render_template('user_management.html', role=session.get('role'),  user_management_error=user_management_error)
+    
+    response = requests.post('http://localhost:5004/user_list')
+    users_data = response.json()
+
     return render_template('user_management.html', role=session.get('role'),users_data= users_data)
 
 
@@ -171,13 +172,13 @@ def issue_report():
             return render_template('issue_report.html', role=session.get('role'), error=error)
     return render_template('issue_report.html', role=session.get('role'))
 
-@app.route('/view_issues', methods=['GET','POST'])
+app.route('/view_issues', methods=['GET','POST'])
 def view_issues():
     response = requests.get('http://localhost:5004/view_issues')
-    if response.status_code == 200:
-        render_template('view_issues.html',Issues = response.text)
-    render_template('view_issues.html')
-    
-    return render_template('view_issues.html', role=session.get('role'))
+    result =response.json()
+    if response.status_code==200:
+        return render_template('view_issues.html', username=session.get('name'), role=session.get('role'),issues=response.text)
+    return render_template('view_issues.html', username=session.get('name'), role=session.get('role'))
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5005)
