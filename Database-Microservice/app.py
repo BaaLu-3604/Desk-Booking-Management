@@ -62,7 +62,12 @@ def user_management():
 def user_list():
     users_data = list(users.find({}, {'_id': 0, 'username': 1,'empid':1, 'role': 1}))
     return jsonify(users_data)
-    
+
+@app.route('/resources_list', methods=['GET','POST'])
+def resources_list():
+    resources_data = list(buildings_collection.find({}, {'_id': 0, 'name': 1}))
+    return jsonify(resources_data)
+
 @app.route('/remove_user', methods=['POST'])
 def remove_user():
     data = request.json
