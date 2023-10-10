@@ -30,7 +30,6 @@ def add_resource():
     data = request.json
     print(data)
     response = requests.post('http://localhost:5004/add_resource', json=data)
-
     if response.status_code == 200:
         result = response.json()
         return result

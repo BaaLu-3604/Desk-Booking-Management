@@ -106,7 +106,6 @@ def user_management():
 
     return render_template('user_management.html', role=session.get('role'),users_data= users_data)
 
-
 @app.route('/add_resource', methods=['GET','POST'])
 def add_resource():
     if session and session.get('role') != 'Admin':
@@ -119,7 +118,7 @@ def add_resource():
         resources = request.form['resources']
         data = {'building': building, 'block': block, 'resources': resources, 'desk': desk}
         response = requests.post('http://localhost:5003/add_resource',json=data )
-        if response.status_code == 200:
+        if response.status_code == 201:
             message = "Resource added successfully"
             return render_template('add_resource.html', role=session.get('role'), error=message)
         else:
@@ -143,13 +142,14 @@ def book_desk():
         Block = request.form['selectBlock']
         Date = request.form['datepicker']        
         response = requests.post('http://localhost:5004/get_desks_status', json=({'Building':Building,'Block': Block,'Date': Date}))
+        print(response.text)
         print(response.status_code)
         result = response.json()
         if response.status_code == 200:
-            return render_template('book_desk.html', role=session.get('role'), error=response.text)
+            return jsonify({'desks': result['desks']})
         else:
-            error = "Unsuccessful: " + result.text # Display the error message from the JSON response
-            return render_template('book_desk.html', role=session.get('role'), error=error)
+            error = "Unsuccessful: " + result.get('error', 'Unknown error')  # Get the error message from the JSON response
+            return jsonify({'error': error}), 500
     return render_template('book_desk.html', role=session.get('role'))
 
 @app.route('/issue_report', methods=['GET','POST'])
@@ -175,10 +175,11 @@ def issue_report():
 app.route('/view_issues', methods=['GET','POST'])
 def view_issues():
     response = requests.get('http://localhost:5004/view_issues')
-    result =response.json()
-    if response.status_code==200:
-        return render_template('view_issues.html', username=session.get('name'), role=session.get('role'),issues=response.text)
-    return render_template('view_issues.html', username=session.get('name'), role=session.get('role'))
+    if response.status_code == 200:
+        render_template('view_issues.html',Issues = response.text)
+    render_template('view_issues.html')
+    
+    return render_template('view_issues.html', role=session.get('role'))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5005)
