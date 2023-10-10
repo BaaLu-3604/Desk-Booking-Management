@@ -255,18 +255,13 @@ def issue_report():
     Issue_report.insert_one(Issue)
     return jsonify({"message": "successfully added your Issue"}),201
 
-@app.route('/view_issues', methods=['POST'])
-def view_issues():
-    issues_reported = list(Issue_report.find({}))
-    print ('issues_reported')
-    return jsonify({"issues_reported": issues_reported })
-
-  
 @app.route('/view_issues', methods=['GET','POST'])
 def view_issues():
     issues_reported = list(Issue_report.find({},{'_id': 0, 'email': 1,'Issue':1}))
     print (issues_reported)
     return jsonify({"issues_reported": issues_reported })
+
+  
 
 if __name__ == '__main__':
     app.run(debug=True,port=5004,host='0.0.0.0')

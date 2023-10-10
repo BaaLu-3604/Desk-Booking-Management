@@ -172,13 +172,12 @@ def issue_report():
             return render_template('issue_report.html', role=session.get('role'), error=error)
     return render_template('issue_report.html', role=session.get('role'))
 
-app.route('/view_issues', methods=['GET','POST'])
+@app.route('/view_issues', methods=['GET','POST'])
 def view_issues():
     response = requests.get('http://localhost:5004/view_issues')
     if response.status_code == 200:
-        render_template('view_issues.html',Issues = response.text)
+        render_template('view_issues.html',issues = response.text)
     render_template('view_issues.html')
-    
     return render_template('view_issues.html', role=session.get('role'))
 
 if __name__ == '__main__':
