@@ -9,15 +9,15 @@
         <div class="p-4 rounded-4" style="background-color: rgba(201, 197, 199, 0.705);
             -webkit-backdrop-filter: blur(4px);
             backdrop-filter: blur(2px);">
-            <form class="" method="post">
+            <form class="" method="post" >
                 <div class="row mt-2">
                     <div class="col-md-3 mt-2">
                         <label for="selectBuilding" class="form-label  opacity-100 fw-bold">Building</label>
                         <select required id="selectBuilding" name="selectBuilding" class="form-select mb-3">
                             <option value="select">--Select Building--</option>
-                            <option value="Deccan Park">Deccan Park</option>
-                            <option value="Synergy Park">Synergy Park</option>
-                            <option value="Kohinoor Park">Kohinoor Park</option>
+                            {% for building in resources_data %}
+                            <option value="{{ building.name }}">{{ building.name }}</option>
+                            {% endfor %}
                             <option value="Add Building">Add Building</option>
                         </select>
                     </div>
@@ -25,7 +25,8 @@
                     <script>
                         // Get references to relevant elements
                         const selectBuilding = document.getElementById('selectBuilding');
-                        
+                        const selectBlock = document.getElementById('selectBlock');
+
                         // Add an event listener to the select element
                         selectBuilding.addEventListener('change', function () {
                             if (selectBuilding.value === 'Add Building') {
@@ -113,11 +114,14 @@
                 <div class="d-flex mt-4  justify-content-center">
                     <input type="submit" class="btn fw-bold btn-primary" value="Add Resource">
                 </div>
-        </div>
-    </div>
-        <p class="text-center mt-3" style="color: tomato;">{{error}}</p>
+            </div>
+            </div>
+            <p class="text-center mt-3" style="color: tomato;">{{error}}</p>
         </form>
     </div>
+    {% for building in buildings %}
+                        <option value="{{ building.name }}">{{ building.name }}</option>
+                    {% endfor %}
     <div class="container mt-3">
         <table class="table table-dark table-hover">
             <thead>
@@ -128,7 +132,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for user in resources_data %}
+                {% for resources in resources_data %}
                 <tr>
                     <td>{{ resources.name }}</td>
                     <td>{{ resources.name }}</td>
