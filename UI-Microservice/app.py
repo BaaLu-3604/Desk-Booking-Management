@@ -3,11 +3,13 @@ from flask import Flask, jsonify, render_template, redirect, request, session, u
 from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
 from flask_caching import Cache
+from flask_cors import CORS 
 
 src = os.getcwd()
 load_dotenv(src+"/env.env")
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = os.urandom(24)
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
@@ -33,8 +35,6 @@ def home():
 @app.route('/')
 def index():
     return render_template('home.html', role=session.get('role'))
-
-
 
 @app.route('/authenticate')
 def authenticate():
@@ -174,10 +174,10 @@ def issue_report():
 @app.route('/view_issues', methods=['GET','POST'])
 def view_issues():
     response = requests.get('http://localhost:5004/view_issues')
-    result =response.json()
-    if response.status_code==200:
-        return render_template('view_issues.html', username=session.get('name'), role=session.get('role'),issues=response.text)
-    return render_template('view_issues.html', username=session.get('name'), role=session.get('role'))
+    if response.status_code == 200:
+        render_template('view_issues.html',issues = response.text)
+    render_template('view_issues.html')
+    return render_template('view_issues.html', role=session.get('role'))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5005)
