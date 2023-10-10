@@ -159,14 +159,14 @@ def fetch_desks_status():
     block_name = data['Block']
     
     # Check if the building exists in the database
-    building = buildings_collection.find_one({"building_name": building_name})
+    building = buildings_collection.find_one({"name": building_name})
     
     if building:
         # The building exists, now check the block
-        block = blocks_collection.find_one({"block_name": block_name})
+        block = blocks_collection.find_one({"name": block_name})
         
         if block:
-            desks = desks_collection.find({"block": block["_id"]}, {"_id": 0, "desk_name": 1, "availability": 1,"resources":1,"occupied_by":1})
+            desks = desks_collection.find({"block": block["_id"]}, {"_id": 0, "name": 1, "availability": 1})
             desks_data = list(desks)
             return jsonify({"building_name": building_name, "block_name": block_name, "desks": desks_data})
         else:
@@ -199,39 +199,8 @@ def get_bb_data():
                 building_blocks_data[building_name] = block_names
             else:
                 building_blocks_data[building_name] = []
-        print(building_blocks_data)
+
         return jsonify(building_blocks_data)
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-    
-@app.route('/get_all_data', methods=['GET'])
-def get_all_data():
-    try:
-        data = {}  # Initialize an empty dictionary to store the data
-        # Fetch building names from the database collection
-        building_names = buildings_collection.distinct("building_name")
-        # Iterate through each building name
-        for building_name in building_names:
-            building_data = {}  # Initialize a dictionary for the building
-
-            # Fetch blocks associated with the building
-            blocks = buildings_collection.find_one({"building_name": building_name}, {"_id": 0, "blocks.block_name": 1,"blocks._id": 1})
-            if blocks:
-                block_data = {}  # Initialize a dictionary for blocks within the building
-                for block in blocks.get("blocks", []):
-                    block_name = block.get("block_name")
-                    # Access the _id ObjectId from the block document
-                    block_id = block.get("_id")
-                    # Fetch desks associated with the block using block_id
-                    desks = desks_collection.find({"block": block_id}, {"_id": 1, "desk_name": 1})
-                    if desks:
-                        desk_names = [desk.get("desk_name") for desk in desks]
-                        block_data[block_name] = desk_names
-
-                building_data[building_name] = block_data
-                data.update(building_data)
-        print(data)
-        return jsonify(data)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

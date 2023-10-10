@@ -25,11 +25,6 @@
                         </select>
                     </div>
 
-                    <div class="col-md-4 mt-2">
-                        <label for="Select date" class="form-label">Select date</label>
-                        <input type="date" id="datepicker" name="datepicker" class="form-control" required>
-                    </div>
-
                     <div class="col-md-1 d-grid align-content-center mt-4">
                         <input type="button" id="showDesksButton" class="btn fw-bold btn-primary" value="Show desks" />
                           
@@ -38,35 +33,8 @@
                 <p class="text-center mt-3" style="color: tomato">{{ error }}</p>
             </form>
         </div>
-        <div class="container-fluid mt-2" >
-            <svg id="svgContainer" width="100%" height="100%" viewBox="0 0 900 400"
-                xmlns="http://www.w3.org/2000/svg"  style="background-color: rgba(255, 255, 255, 0.137); 
-                -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(2px);">
-            </svg>
-        </div>
     </div>
 </div>
-
-<!-- Desk details modal -->
-<div class="modal fade" id="deskDetailsModal" tabindex="-1" aria-labelledby="deskDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deskDetailsModalLabel">Desk Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p><strong>Desk Number:</strong> <span id="deskNumber"></span></p>
-                <p><strong>Occupied By:</strong> <span id="occupiedBy"></span></p>
-                <p><strong>Availability:</strong> <span id="deskAvailability"></span></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Function to populate select dropdowns with data
@@ -133,95 +101,6 @@
         fetchData();
     });
 </script>
-<script>
-    const availableIcon = '<i class="fas fa-chalkboard" fill="blue" style="font-size:24px;color:blue;"></i>';
-    const unavailableIcon = '<i class="fas fa-chalkboard" style="font-size:24px;color:red;"></i>';
-    const BlockedIcon = '<i class="fas fa-chalkboard" style="font-size:24px;color:gray;"></i>';
-
-    // Add event listener to the "Show Desks" button
-    document.getElementById("showDesksButton").addEventListener("click", function () {
-        // Call the function to fetch desk data and update the SVG
-        fetchDeskDataAndUpdateSVG();
-    });
-
-    // Function to fetch desk data from the server and update the SVG
-    function fetchDeskDataAndUpdateSVG() {
-        // Make a POST request to the book_desk route
-        fetch('http://127.0.0.1:5005/book_desk', {
-            method: 'POST',
-            body: new FormData(document.querySelector('form')), // Send form data
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Data received:', data.desks);
-            // Call the function to update the SVG based on the fetched data
-            updateSVG(data.desks);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-
-    // Function to update the SVG based on data
-    function updateSVG(data) {
-        const svgContainer = document.getElementById("svgContainer");
-
-        // Clear the SVG container
-        svgContainer.innerHTML = '';
-
-        // Loop through the data and create desk elements
-        let x = 550;
-        let y = 0;
-        const iconsPerRow = 6; // Number of icons per row
-        let currentRow = null;
-
-        data.forEach((desk, index) => {
-            if (index % iconsPerRow === 0) {
-                // Start a new row
-                x = 150;
-                y += 80; // Adjust vertical spacing between rows
-                currentRow = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                svgContainer.appendChild(currentRow);
-            }
-
-            // Create a foreignObject to embed the icon and desk number as HTML content
-            const foreignObject = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
-            foreignObject.setAttribute("x", x);
-            foreignObject.setAttribute("y", y);
-            foreignObject.setAttribute("width", "50");
-            foreignObject.setAttribute("height", "50");
-
-            // Set the HTML content based on availability and desk number
-            const deskHtml = `
-                <div xmlns="http://www.w3.org/1999/xhtml" style="font-size: 12px; text-align: center;">
-                    ${desk.availability ? availableIcon : unavailableIcon}
-                    <br>
-                    Desk ${desk.desk_name}
-                </div>
-            `;
-
-            foreignObject.innerHTML = deskHtml;
-
-            // Add a click event listener to show desk details
-            foreignObject.addEventListener("click", () => {
-                // Update the modal with desk details
-                document.getElementById("deskNumber").textContent = desk.desk_name;
-                document.getElementById("deskAvailability").textContent = desk.availability ? "true" : "false";
-                document.getElementById("occupiedBy").textContent = desk.occupied_by;
-                // Show the modal
-                const deskDetailsModal = new bootstrap.Modal(document.getElementById("deskDetailsModal"));
-                deskDetailsModal.show();
-            });
-
-            // Append the foreignObject to the current row
-            currentRow.appendChild(foreignObject);
-
-            // Increment the x-coordinate for the next icon
-            x += 100; // Adjust horizontal spacing between icons
-        });
-    }
-</script>
-
 
 {% else %}
 <div class="p-3 w-25 offset-5 my-5 rounded-3 fw-bold bg-danger text-white">
