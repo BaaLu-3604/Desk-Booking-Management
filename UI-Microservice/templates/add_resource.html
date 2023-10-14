@@ -10,7 +10,7 @@
                 <form class="" method="post">
                     <h2 class="text-center mt-3 mb-4">Add Resource</h2>
                     <div class="">
-                        <label for="selectBuilding" class="form-label opacity-100 fw-bold">Building:</label>
+                        <label for="selectBuilding" class="form-label opacity-100 fw-bold">Building</label>
                         <div id="buildingDropdown">
                             <select required id="selectBuilding" name="selectBuilding" class="form-select mb-3">
                                 <option value="select">--Select--</option>
@@ -33,16 +33,12 @@
                     <div class="mb-1">
                         <label for="deskNo" class="form-label fw-bold">Desk No</label>
                         <div id="deskDropdown">
-                            <select required id="deskNo" name="deskNo" class="form-select mb-3">
-                                <option value="select">--Select--</option>
-                            </select>
-                            <input type="text" id="newDeskInput" class="form-control mb-3" style="display: none"
-                                placeholder="Enter New Desk" />
+                                <input type="number"  class="form-control" required/>
                         </div>
                     </div>
     
                     <div class="mb-1">
-                        <label for="deskNo" class="form-label fw-bold">Resources</label>
+                        <label for="resources" class="form-label fw-bold">Resources</label>
                         <input type="text" class="form-control mb-3" id="resources" name="resources"
                             placeholder="Enter Resources" required />
                     </div>
@@ -62,7 +58,7 @@
         const selectBlock = document.getElementById("selectBlock");
         const newBlockInput = document.getElementById("newBlockInput");
         const selectDesk = document.getElementById("deskNo");
-        const newDeskInput = document.getElementById("newDeskInput");
+        // const newDeskInput = document.getElementById("newDeskInput");
     
         // Function to populate the "Building" dropdown
         function populateDropdowns(data) {
@@ -141,46 +137,46 @@
             });
     
             // Function to populate the "Desk No" dropdown based on the selected block
-            function populateDeskNumbers() {
-                const selectedBuilding = selectBuilding.value;
-                const selectedBlock = selectBlock.value;
-                selectDesk.innerHTML = '<option value="select">--Select--</option>';
-                if (selectedBlock !== "select") {
-                    const desks = data[selectedBuilding][selectedBlock];
-                    for (const desk of desks) {
-                        const option = document.createElement("option");
-                        option.value = desk;
-                        option.textContent = desk;
-                        option.disabled = true;
-                        selectDesk.appendChild(option);
-                    }
-                }
-                // Add an option to add a new desk
-                const addDeskOption = document.createElement("option");
-                addDeskOption.value = "addDesk";
-                addDeskOption.textContent = "Add New Desk";
-                selectDesk.appendChild(addDeskOption);
-            }
+            // function populateDeskNumbers() {
+            //     const selectedBuilding = selectBuilding.value;
+            //     const selectedBlock = selectBlock.value;
+            //     selectDesk.innerHTML = '<option value="select">--Select--</option>';
+            //     if (selectedBlock !== "select") {
+            //         const desks = data[selectedBuilding][selectedBlock];
+            //         for (const desk of desks) {
+            //             const option = document.createElement("option");
+            //             option.value = desk;
+            //             option.textContent = desk;
+            //             option.disabled = true;
+            //             selectDesk.appendChild(option);
+            //         }
+            //     }
+            //     // Add an option to add a new desk
+            //     const addDeskOption = document.createElement("option");
+            //     addDeskOption.value = "addDesk";
+            //     addDeskOption.textContent = "Add New Desk";
+            //     selectDesk.appendChild(addDeskOption);
+            // }
     
             // Function to handle adding a new desk
-            function addNewDesk() {
-                // Show the input field for entering a new desk name
-                newDeskInput.style.display = "block";
+            // function addNewDesk() {
+            //     // Show the input field for entering a new desk name
+            //     newDeskInput.style.display = "block";
     
-                // Hide the select dropdown
-                selectDesk.style.display = "none";
+            //     // Hide the select dropdown
+            //     selectDesk.style.display = "none";
     
-                // Focus on the input field
-                newDeskInput.focus();
-            }
+            //     // Focus on the input field
+            //     newDeskInput.focus();
+            // }
     
             // Event listener for changing the desk selection
-            selectDesk.addEventListener("change", function () {
-                if (selectDesk.value === "addDesk") {
-                    // Handle adding a new desk
-                    addNewDesk();
-                }
-            });
+            // selectDesk.addEventListener("change", function () {
+            //     if (selectDesk.value === "addDesk") {
+            //         // Handle adding a new desk
+            //         addNewDesk();
+            //     }
+            // });
     
             // Add event listeners to the dropdowns
             selectBuilding.addEventListener("change", populateBlocks);
@@ -194,7 +190,12 @@
                 "Content-Type": "application/json",
             },
         })
-            .then((response) => response.json())
+        .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
             .then((data) => {
                 // Call the function to populate the dropdowns with fetched data
                 populateDropdowns(data);
