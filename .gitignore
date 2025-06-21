@@ -1,3 +1,4 @@
+
 config.py
 Login-Microservice/__pycache__
 Login-Microservice/
@@ -5,4 +6,3 @@ env.env
 UI-Microservice/UIenv
 queries.txt
 /API-Gateway
-

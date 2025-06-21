@@ -33,6 +33,7 @@ def isexists():
 
 @app.route('/user_management', methods=['POST'])
 def user_management():
+
     data = request.json
     email = data['email']
     role = data['role']
