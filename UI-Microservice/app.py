@@ -17,7 +17,6 @@ oauth = OAuth(app)
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
 # print(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)
-
 oauth.register(
     name='google',
     server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
@@ -80,8 +79,6 @@ def user_management():
     if session and session.get('role') != 'Admin':
         message = "You do not have permission to Manage Users!"
         return render_template('error.html', role=session.get('role'), error=message)
-
-   
     if request.method == 'POST':
         email = request.form['email']
         role = request.form['role']
@@ -106,7 +103,6 @@ def user_management():
 
     return render_template('user_management.html', role=session.get('role'),users_data= users_data)
 
-
 @app.route('/add_resource', methods=['GET','POST'])
 def add_resource():
     if session and session.get('role') != 'Admin':
@@ -124,7 +120,10 @@ def add_resource():
             return render_template('add_resource.html', role=session.get('role'), error=message)
         else:
             error = "Resource already exists"
-            return render_template('add_resource.html', role=session.get('role'), error=error)
+            return render_template('add_resource.html', role=session.get('role'), error=error)    
+    response = requests.post('http://localhost:5004/resources_list')
+    resources_data = response.json()
+
     return render_template('add_resource.html', role=session.get('role'))
 
 @app.route('/remove_resource', methods=['GET','POST'])
