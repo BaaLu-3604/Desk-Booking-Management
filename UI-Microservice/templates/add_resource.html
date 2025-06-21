@@ -210,3 +210,214 @@
         <p>Session Expired Please Login ..!</p>
     </div>
     {% endif %} {% endblock %}
+=======
+content %} {% if 'username' in session %}
+<div class="container d-flex justify-content-center" style="margin-top: 6%">
+    <div class="col-4">
+        <div class="p-4 rounded-4" style="
+        background-color: rgba(201, 197, 199, 0.705);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+      ">
+            <form class="" method="post">
+                <h2 class="text-center mt-3 mb-4">Add Resource</h2>
+                <div class="">
+                    <label for="selectBuilding" class="form-label opacity-100 fw-bold">Building:</label>
+                    <div id="buildingDropdown">
+                        <select required id="selectBuilding" name="selectBuilding" class="form-select mb-3">
+                            <option value="select">--Select--</option>
+                        </select>
+                        <input type="text" id="newBuildingInput" class="form-control mb-3" style="display: none"
+                            placeholder="Enter New Building" />
+                    </div>
+                </div>
+                <div>
+                    <label for="selectBlock" class="form-label fw-bold">Block</label>
+                    <div id="blockDropdown">
+                        <select required id="selectBlock" name="selectBlock" class="form-select mb-3">
+                            <option value="select">--Select--</option>
+                        </select>
+                        <input type="text" id="newBlockInput" class="form-control mb-3" style="display: none"
+                            placeholder="Enter New Block" />
+                    </div>
+                </div>
+
+                <div class="mb-1">
+                    <label for="deskNo" class="form-label fw-bold">Desk No</label>
+                    <div id="deskDropdown">
+                        <select required id="deskNo" name="deskNo" class="form-select mb-3">
+                            <option value="select">--Select--</option>
+                        </select>
+                        <input type="text" id="newDeskInput" class="form-control mb-3" style="display: none"
+                            placeholder="Enter New Desk" />
+                    </div>
+                </div>
+
+                <div class="mb-1">
+                    <label for="deskNo" class="form-label fw-bold">Resources</label>
+                    <input type="text" class="form-control mb-3" id="resources" name="resources"
+                        placeholder="Enter Resources" required />
+                </div>
+
+                <div class="d-flex mt-4 justify-content-center">
+                    <input type="submit" class="btn fw-bold btn-primary" value="Add Resource" />
+                </div>
+            </form>
+        </div>
+        <p class="text-center mt-3" style="color: tomato">{{error}}</p>
+    </div>
+</div>
+
+<script>
+    const selectBuilding = document.getElementById("selectBuilding");
+    const newBuildingInput = document.getElementById("newBuildingInput");
+    const selectBlock = document.getElementById("selectBlock");
+    const newBlockInput = document.getElementById("newBlockInput");
+    const selectDesk = document.getElementById("deskNo");
+    const newDeskInput = document.getElementById("newDeskInput");
+
+    // Function to populate the "Building" dropdown
+    function populateDropdowns(data) {
+        // Populate the "Building" dropdown
+        selectBuilding.innerHTML = '<option value="select">--Select--</option>';
+        for (const buildingName in data) {
+            const option = document.createElement("option");
+            option.value = buildingName;
+            option.textContent = buildingName;
+            selectBuilding.appendChild(option);
+        }
+
+        // Add an option to add a new building
+        const addBuildingOption = document.createElement("option");
+        addBuildingOption.value = "addBuilding";
+        addBuildingOption.textContent = "Add New Building";
+        selectBuilding.appendChild(addBuildingOption);
+
+        // Function to handle adding a new building
+        function addNewBuilding() {
+            // Show the input field for entering a new building name
+            newBuildingInput.style.display = "block";
+
+            // Hide the select dropdown
+            selectBuilding.style.display = "none";
+
+            // Focus on the input field
+            newBuildingInput.focus();
+        }
+
+        // Event listener for changing the building selection
+        selectBuilding.addEventListener("change", function () {
+            if (selectBuilding.value === "addBuilding") {
+                // Handle adding a new building
+                addNewBuilding();
+            }
+        });
+
+        // Function to populate the "Block" dropdown based on the selected building
+        function populateBlocks() {
+            const selectedBuilding = selectBuilding.value;
+            selectBlock.innerHTML = '<option value="select">--Select--</option>';
+            if (selectedBuilding !== "select") {
+                for (const blockName in data[selectedBuilding]) {
+                    const option = document.createElement("option");
+                    option.value = blockName;
+                    option.textContent = blockName;
+                    selectBlock.appendChild(option);
+                }
+            }
+            // Add an option to add a new block
+            const addBlockOption = document.createElement("option");
+            addBlockOption.value = "addBlock";
+            addBlockOption.textContent = "Add New Block";
+            selectBlock.appendChild(addBlockOption);
+        }
+
+        // Function to handle adding a new block
+        function addNewBlock() {
+            // Show the input field for entering a new block name
+            newBlockInput.style.display = "block";
+
+            // Hide the select dropdown
+            selectBlock.style.display = "none";
+
+            // Focus on the input field
+            newBlockInput.focus();
+        }
+
+        // Event listener for changing the block selection
+        selectBlock.addEventListener("change", function () {
+            if (selectBlock.value === "addBlock") {
+                // Handle adding a new block
+                addNewBlock();
+            }
+        });
+
+        // Function to populate the "Desk No" dropdown based on the selected block
+        function populateDeskNumbers() {
+            const selectedBuilding = selectBuilding.value;
+            const selectedBlock = selectBlock.value;
+            selectDesk.innerHTML = '<option value="select">--Select--</option>';
+            if (selectedBlock !== "select") {
+                const desks = data[selectedBuilding][selectedBlock];
+                for (const desk of desks) {
+                    const option = document.createElement("option");
+                    option.value = desk;
+                    option.textContent = desk;
+                    option.disabled = true;
+                    selectDesk.appendChild(option);
+                }
+            }
+            // Add an option to add a new desk
+            const addDeskOption = document.createElement("option");
+            addDeskOption.value = "addDesk";
+            addDeskOption.textContent = "Add New Desk";
+            selectDesk.appendChild(addDeskOption);
+        }
+
+        // Function to handle adding a new desk
+        function addNewDesk() {
+            // Show the input field for entering a new desk name
+            newDeskInput.style.display = "block";
+
+            // Hide the select dropdown
+            selectDesk.style.display = "none";
+
+            // Focus on the input field
+            newDeskInput.focus();
+        }
+
+        // Event listener for changing the desk selection
+        selectDesk.addEventListener("change", function () {
+            if (selectDesk.value === "addDesk") {
+                // Handle adding a new desk
+                addNewDesk();
+            }
+        });
+
+        // Add event listeners to the dropdowns
+        selectBuilding.addEventListener("change", populateBlocks);
+        selectBlock.addEventListener("change", populateDeskNumbers);
+    }
+
+    // Make an AJAX request to fetch all data
+    fetch("http://127.0.0.1:5004/get_all_data", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            // Call the function to populate the dropdowns with fetched data
+            populateDropdowns(data);
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+</script>
+
+{% else %}
+<div class="p-3 w-25 offset-5 my-5 rounded-3 fw-bold bg-danger text-white">
+    <p>Session Expired Please Login ..!</p>
+</div>
+{% endif %} {% endblock %}
